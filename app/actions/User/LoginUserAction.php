@@ -3,6 +3,7 @@ session_start();
 
 require_once("../../domain/interfaces/IUseCase.php");
 require_once("../../core/View.php");
+
 final class LoginUserAction extends View{
     public function __construct(
         private readonly IUseCase $usecase,

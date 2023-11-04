@@ -1,5 +1,10 @@
 <?php
+session_start();
 $title = "Login";
+// if(isset($_SESSION["flash"])) {
+//     echo "<div class='w-full h-max bg-red-200 my-4 p-4 text-red-700 border-2 border-red-300 rounded-md'>" . $_SESSION["flash"] . "</div>";
+//     unset($_SESSION['flash']);
+// }
 ?>
 <?php require("./partials/metadata.php"); ?>
     <main class="min-h-screen w-screen flex items-center justify-center bg-blue-500 flex-col">
