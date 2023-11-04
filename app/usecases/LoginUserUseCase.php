@@ -6,7 +6,7 @@ final class LoginUserUseCase implements IUseCase {
     public function __construct(
         private readonly IUserRepository $repository 
     ) {}
-    public function execute(array $args): bool {
+    public function execute(array $args): bool | null{
         $user = $this->repository->getUserByEmail($args["email"]);
 
         if ($user !== null) {
@@ -16,6 +16,6 @@ final class LoginUserUseCase implements IUseCase {
             return false;
         }
 
-        throw new Exception("Cannot find user with email " . $args["email"]);
+        return null;
     }
 }
