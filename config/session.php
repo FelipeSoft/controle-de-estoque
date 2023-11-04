@@ -2,10 +2,9 @@
 require_once(dirname(__FILE__) . "/config.php");
 require_once(dirname(__FILE__) . "../../core/View.php");
 
-
-// if(!isset($_SESSION["authorization"])) {
-//     View::redirect("/views/login.php");
-// }
+if(!isset($_SESSION["authorization"])) {
+    View::redirect("/views/login.php");
+}
 ?>
 <div class="flex items-center justify-between w-full">
     <div class="w-full h-full">
