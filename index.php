@@ -1,15 +1,17 @@
 <?php
+$title = "Dashboard - Controle de Estoque";
 $session = "Dashboard";
 $session_text = 'Veja todos os pontos <span
 class="text-green-500 font-semibold">fortes</span> e <span
 class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de segundos.';
 ?>
+
 <?php require("views/partials/metadata.php"); ?>
 <main class="w-screen">
     <?php require("views/partials/header.php"); ?>
     <section class="mx-auto container my-10">
         <div class="flex items-center justify-between">
-            <?php require("views/partials/session.php"); ?>
+            <?php require(dirname(__FILE__) . "/config/session.php"); ?>
         </div>
         <div class="grid grid-cols-5 mt-10 gap-8">
             <div
