@@ -1,4 +1,3 @@
-DROP DATABASE db_controle_de_estoque;
 CREATE DATABASE db_controle_de_estoque;
 USE db_controle_de_estoque;
 
