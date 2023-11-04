@@ -16,7 +16,7 @@ Ainda no mesmo terminal, digite os seguintes comandos:
 `code .`
 
 ### 3º Passo
-Após abrir o Visual Studio Code, abra a pasta __core__, e dentro do arquivo __config.php__, configure as variáveis de acordo com a sua necessidade.
+Após abrir o Visual Studio Code, abra a pasta __config__, e dentro do arquivo __config.php__, configure as variáveis de acordo com a sua necessidade.
 
 ### Complementos
 Dentro da pasta __database__, você encontrará o script SQL para a geração do banco de dados.
