@@ -11,8 +11,7 @@ class Connection {
     public function __construct($driver, $host, $port, $username, $password = "", $database) {
         try {
             $pdo = new PDO("$driver:dbname=$database;host=$host:$port;", $username, $password);
-
-            $this->pdo = $pdo;
+            $this->connection = $pdo;
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit(1);
