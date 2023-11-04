@@ -7,18 +7,41 @@ class User {
     private int $access_level;
     private string $role;
     
-    public function __construct(array $data) {
-        $this->id = $data["id"] ?? null;
-        $this->name = $data["name"];
-        $this->email = $data["email"];
-        $this->password = $data["password"];
-        $this->access_level = $data["access_level"];
-        $this->role = $data["role"];
+    public function __construct(string $name, string $email, string $password, int $access_level = 1, string $role = "Operador", $id = null) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->access_level = $access_level;
+        $this->role = $role;
+        
+        $this->validateEmail();
     }
     private function validateEmail(): void { 
         if (!filter_var($this->name, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Cannot use this format of e-mail.");
         }
+    }
+    public function recoverID(): int {
+        return $this->id;
+    }
+    public function recoverName(): string {
+        return $this->name;
+    }
+    public function recoverEmail(): string {
+        return $this->email;
+    }
+
+    public function recoverPassword(): string {
+        return $this->password;
+    }
+
+    public function recoverAccessLevel(): string {
+        return $this->access_level;
+    }
+
+    public function recoverRole(): string {
+        return $this->role;
     }
     public function changeName(string $name): void {
         $this->name = $name;

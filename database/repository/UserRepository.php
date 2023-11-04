@@ -7,7 +7,7 @@ class UserRepository implements IUserRepository {
         private readonly IUserDataAccessObject $dao 
     ) {}
     public function createUser(User $user): void {
-        
+        $this->dao->insert($user);
     }
     public function findAll(): User {
         

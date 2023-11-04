@@ -8,10 +8,34 @@ class UserDataAccessObjectMySQL implements IUserDataAccessObject {
     }
 
     public function insert(User $user): void {
-
+        try {
+            $query = "INSERT INTO users (email, password, name, role) VALUES (:email, :password, :name, :role)";
+            $statement = $this->connection->prepare($query);
+            $statement->bindValue(":email", $user->recoverEmail(), PDO::PARAM_STR);
+            $statement->bindValue(":password", $user->recoverPassword(), PDO::PARAM_STR);
+            $statement->bindValue(":name", $user->recoverName(), PDO::PARAM_STR);
+            $statement->bindValue(":role", $user->recoverRole(), PDO::PARAM_STR);
+            $statement->execute();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
     public function all(): array {
+        try {
+            $query = "SELECT * FROM users";
+            $statement = $this->connection->prepare($query);
+            $statement->execute();
 
+            if ($statement->rowCount() > 0) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            }
+            
+            return [];
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
     public function getByEmail(string $email): array {
         try {
@@ -21,7 +45,7 @@ class UserDataAccessObjectMySQL implements IUserDataAccessObject {
             $statement->execute();
 
             if ($statement->rowCount() > 0) {
-                return $statement->fetchAll(PDO::FETCH_ASSOC);
+                return $statement->fetch(PDO::FETCH_ASSOC);
             }
             
             return [];
