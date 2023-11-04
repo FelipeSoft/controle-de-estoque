@@ -1,3 +1,7 @@
+<?php
+$title = "Registro";
+?>
+
 <?php require("./partials/metadata.php"); ?>
     <main class="min-h-screen w-screen flex items-center justify-center bg-blue-500 flex-col">
         <form action="" method="POST" class="max-w-xl bg-white p-10 rounded-md shadow-xl shadow-blue-700">

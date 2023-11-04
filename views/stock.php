@@ -1,4 +1,5 @@
 <?php
+$title = "Estoque - Controle de Estoque";
 $session = "Estoque";
 $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
 ?>
@@ -7,7 +8,7 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
     <main class="w-screen">
         <?php require("./partials/header.php"); ?>
         <section class="mx-auto container my-10">
-            <?php require("partials/session.php"); ?>
+            <?php require("../config/session.php"); ?>
             <div>
                 <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
                 <form action="">

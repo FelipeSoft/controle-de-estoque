@@ -1,4 +1,5 @@
 <?php
+$title = "Clientes - Controle de Estoque";
 $session = "Clientes";
 $session_text = "Cadastre os seus clientes de forma facilitada."
 ?>
@@ -7,7 +8,7 @@ $session_text = "Cadastre os seus clientes de forma facilitada."
     <main class="w-screen">
         <?php require("./partials/header.php"); ?>
         <section class="mx-auto container my-10">
-            <?php require("partials/session.php"); ?>
+            <?php require("../config/session.php"); ?>
             <div class="w-full h-max bg-green-200 mt-8 p-4 text-green-700 border-2 border-green-300 rounded-md">
                 Cliente cadastrado com sucesso!
             </div>
