@@ -6,16 +6,18 @@ final class LoginUserUseCase implements IUseCase {
     public function __construct(
         private readonly IUserRepository $repository 
     ) {}
-    public function execute(array $args): bool | null{
+    public function execute(array $args): User | bool{
         $user = $this->repository->getUserByEmail($args["email"]);
 
         if ($user !== null) {
-            $userFromDatabase = $user["password"];
-            if (password_verify($userFromDatabase["password"], $args["password"])) return true;
+            $passwordFromDatabase = $user->recoverPassword();
+            if (password_verify($args["password"], $passwordFromDatabase)) {
+                return $user;
+            };
 
             return false;
         }
 
-        return null;
+        return false;
     }
 }

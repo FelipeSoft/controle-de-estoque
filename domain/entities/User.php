@@ -1,13 +1,13 @@
 <?php
 class User {
-    private int $id;
+    private int | null $id;
     private string $name;
     private string $email;
     private string $password;    
-    private int $access_level;
+    private int | string $access_level = 1;
     private string $role;
     
-    public function __construct(string $name, string $email, string $password, int $access_level = 1, string $role = "Operador", $id = null) {
+    public function __construct(string $name, string $email, string $password, $access_level = 1, string $role = "Operador", $id = null) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
@@ -18,11 +18,11 @@ class User {
         $this->validateEmail();
     }
     private function validateEmail(): void { 
-        if (!filter_var($this->name, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($this->name, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Cannot use this format of e-mail.");
         }
     }
-    public function recoverID(): int {
+    public function recoverID(): int | null {
         return $this->id;
     }
     public function recoverName(): string {

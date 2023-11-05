@@ -24,7 +24,7 @@ $BASE_URL = "http://localhost/controle-de-estoque";
                         href="<?= $BASE_URL ?>/views/suppliers.php">Fornecedores</a></li>
                 <li class="ml-5 h-full flex items-center justify-center"><a
                         class="text-red-500 font-semibold flex items-center justify-center px-4 text-lg hover:bg-red-500 hover:text-white transition-all h-full"
-                        href="<?= $BASE_URL ?>/app/actions/logout_action.php">Sair</a></li>
+                        href="<?= $BASE_URL ?>/app/actions/logout_user_action.php">Sair</a></li>
             </ul>
         </div>
     </nav>

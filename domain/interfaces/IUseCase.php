@@ -1,4 +1,4 @@
 <?php
 interface IUseCase {
-    public function execute(array $args = []): mixed;
+    public function execute(array $args);
 }
