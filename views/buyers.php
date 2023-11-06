@@ -71,7 +71,7 @@ $session_text = "Cadastre os seus clientes de forma facilitada."
                         <tr class="">
                             <td class="py-2 px-4 bg-black text-white">ID</td>
                             <td class="py-2 px-4 bg-black text-white">Registro</td>
-                            <td class="py-2 px-4 bg-black text-white">Fornecedor</td>
+                            <td class="py-2 px-4 bg-black text-white">Cliente</td>
                             <td class="py-2 px-4 bg-black text-white">E-mail</td>
                             <td class="py-2 px-4 bg-black text-white">Telefone de Contato</td>
                             <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
@@ -79,7 +79,7 @@ $session_text = "Cadastre os seus clientes de forma facilitada."
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-2">
+                        <tr class="border-2 even:bg-gray-200">
                             <td class="py-2 px-4 text-sm">1</td>
                             <td class="py-2 px-4 text-sm">21/07/2023</td>
                             <td class="py-2 px-4 text-sm">Motorola</td>

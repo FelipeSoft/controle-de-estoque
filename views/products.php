@@ -14,38 +14,38 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
             </div>
             <div>
                 <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Cadastro de Produtos</h1>
-                <form action="" class="mb-16">
+                <form action="../app/actions/insert_product_action.php" class="mb-16">
                     <div class="grid grid-cols-3 gap-6">
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Nome do Produto
-                            <input type="text" placeholder="ex: Impressora RICOH 377"
+                            <input name="product_name" type="text" placeholder="ex: Impressora RICOH 377"
                                 class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Custo (R$)
-                            <input type="number" placeholder="ex: 12,78"
+                            <input name="product_cost" type="number" placeholder="ex: 12,78"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Preço Unitário (R$)
-                            <input type="number" placeholder="ex: 15,78"
+                            <input name="product_price" type="number" placeholder="ex: 15,78"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Categoria
-                            <select
+                            <select name="product_category"
                                 class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                                 <option value="Eletrônicos">Eletrônicos</option>
                             </select>
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Estoque Mínimo
-                            <input type="number" placeholder="ex: 20"
+                            <input name="product_min_stock" type="number" placeholder="ex: 20"
                                 class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Fornecedor
-                            <select
+                            <select name="product_supplier"
                                 class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                                 <option value="Motorola">Motorola</option>
                                 <option value="Empresa">Empresa X</option>
@@ -108,7 +108,7 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-2">
+                        <tr class="border-2 even:bg-gray-200">
                             <td class="py-2 px-4 text-sm">1</td>
                             <td class="py-2 px-4 text-sm">21/07/2023</td>
                             <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>

@@ -79,7 +79,7 @@ $session_text = "Cadastre os seus fornecedores de forma facilitada."
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-2">
+                        <tr class="border-2 even:bg-gray-200">
                             <td class="py-2 px-4 text-sm">1</td>
                             <td class="py-2 px-4 text-sm">21/07/2023</td>
                             <td class="py-2 px-4 text-sm">Motorola</td>
