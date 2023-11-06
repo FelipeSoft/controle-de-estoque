@@ -42,7 +42,7 @@ class ProductFactory extends Factory implements Associable{
 
     public function rollback () {
         try {
-            $rows = "SELECT id FROM tb_products;";
+            $rows = "SELECT product_id FROM tb_products;";
             $exists_rows = $this->connection->prepare($rows);
 
             if ($exists_rows->rowCount() < 0) {

@@ -1,4 +1,15 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once(dirname(__FILE__) . "../../database/repository/ProductRepository.php");
+require_once(dirname(__FILE__) . "../../database/dao/ProductDataAccessObjectMySQL.php");
+require("../config/config.php");
+
+$dao = new ProductDataAccessObjectMySQL($connection);
+$repository = new ProductRepository($dao);
+
+$products = $repository->getAllProducts();
+
 $title = "Produtos - Controle de Estoque";
 $session = "Produtos";
 $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
@@ -103,230 +114,53 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-2 even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="border-2">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
+                        <?php foreach($products as $product): ?>
+                            <tr class="border-2 even:bg-gray-200">
+                                <td class="py-2 px-4 text-sm"><?= $product->recoverProductId(); ?></td>
+                                <td class="py-2 px-4 text-sm">
+                                    <?php 
+                                        $timestamp = strtotime($product->recoverCreatedAt());
+                                        echo date("d/m/Y", $timestamp);
+                                    ?>
+                                </td>
+                                <td class="py-2 px-4 text-sm"><?= $product->recoverName(); ?></td>
+                                <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product->recoverCost(), 2, ",", "."); ?></td>
+                                <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product->recoverCost() * 1.5, 2, ",", "."); ?></td>
+                                <td class="py-2 px-4 text-sm">Eletrônicos</td>
+                                <td class="py-2 px-4 text-sm">Dell</td>
+                                <td class="py-2 px-4 text-sm"><?= $product->recoverMinStock(); ?></td>
+                                <td class="py-2 px-4 text-sm">21</td>
+                                <td class="py-2 px-4 text-sm">
+                                <?php
+                                    $from_database_datetime = $product->recoverUpdatedAt();
+                                    $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
+                                    $now = new DateTime();
+
+                                    $interval = $database_date->diff($now);
+
+                                    $hours = $interval->h;
+                                    $minutes = $interval->i;
+                                    $seconds = $interval->s;
+
+                                    $message = '';
+
+                                    if ($hours > 0) {
+                                        $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
+                                    } elseif ($minutes > 0) {
+                                        $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
+                                    } elseif ($seconds > 0) {
+                                        $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
+                                    }
+
+                                    echo $message;
+                                ?>
+                                </td>
+                                <td class="p-4 flex items-center justify-center gap-2">
+                                    <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
+                                    <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

@@ -3,6 +3,7 @@ session_start();
 
 require_once("../../domain/interfaces/IUseCase.php");
 require_once("../../core/Controller.php");
+
 final class RegisterUserController extends Controller{
     public function __construct(
         private readonly IUseCase $usecase
