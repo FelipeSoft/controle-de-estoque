@@ -1,10 +1,12 @@
 <?php
 abstract class Factory {
     private string $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    protected array $tables_pk_array;
 
-    abstract function run(int $times);
+    abstract public function run(int $times);
+    abstract public function rollback();
 
-    public function randomString(): string {
+    protected function randomString(): string {
         $randomString = "";
         for ($i = 0; $i < 10; $i++) {
             $randomString .= $this->characters[rand(0, strlen($this->characters) - 1)];
@@ -12,19 +14,28 @@ abstract class Factory {
         return $randomString;
     }
 
-    public function randomFloat($min, $max, int $decimal_places): float {
+    protected function randomEmail(): string {
+        $randomString = "";
+        for ($i = 0; $i < 15; $i++) {
+            $randomString .= $this->characters[rand(0, strlen($this->characters) - 1)];
+        }
+
+        return $randomString . "@domain.com";
+    }
+
+    protected function randomFloat($min, $max, int $decimal_places): float {
         $randomFloat = 0;
-        $randomDecimal;
+        $randomDecimal = 0;
         
         for ($k = 0; $k < $decimal_places; $k++) {
             $randomDecimal .= random_int(0, 9);
         }
 
-        $randomFloat = random_int($min, $max) . "." . $randomDecimal;
+        $randomFloat = random_int($min, $max) . "." . substr($randomDecimal, 1);
         return $randomFloat;
     }
 
-    public function randomInt(int $min, int $max): int {
+    protected function randomInt(int $min, int $max): int {
         return random_int($min, $max);
     }
 }
