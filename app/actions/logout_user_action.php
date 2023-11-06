@@ -1,6 +1,6 @@
 <?php
-require_once("../../core/View.php");
+require_once("../../core/Controller.php");
 
 session_start();
 unset($_SESSION['authorization']);
-View::redirect('/views/login.php');
+Controller::redirect('/views/login.php');
