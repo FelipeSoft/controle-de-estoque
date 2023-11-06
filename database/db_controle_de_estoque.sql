@@ -1,3 +1,4 @@
+DROP DATABASE db_controle_de_estoque;
 CREATE DATABASE db_controle_de_estoque;
 USE db_controle_de_estoque;
 
@@ -23,7 +24,7 @@ CREATE TABLE `tb_users`(
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `access_level` INT NOT NULL,
-    `role` BIGINT NOT NULL,
+    `role` VARCHAR(255) NOT NULL,
     `created_at` DATETIME NOT NULL,
     `updated_at` DATETIME NOT NULL
 );
