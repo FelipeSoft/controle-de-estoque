@@ -2,10 +2,10 @@
 session_start();
 
 require_once(dirname(__FILE__) . "/config.php");
-require_once(dirname(__FILE__) . "../../core/View.php");
+require_once(dirname(__FILE__) . "../../core/Controller.php");
 
 if(!isset($_SESSION["authorization"])) {
-    View::redirect("/views/login.php");
+    Controller::redirect("/views/login.php");
 }
 
 $logged_user = explode(" ", $_SESSION['authorization']['logged_user']['name'])[0];
