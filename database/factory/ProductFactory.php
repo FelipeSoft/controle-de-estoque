@@ -36,12 +36,4 @@ class ProductFactory extends Factory{
         //     exit;
         // }
     }
-
-    public function associate() {
-        if(sizeof($this->associations) > 1) {
-            for ($i = 0; $i < sizeof($this->associations); $i++) {
-                
-            }
-        }
-    }
 }

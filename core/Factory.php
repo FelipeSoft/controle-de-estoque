@@ -3,7 +3,6 @@ abstract class Factory {
     private string $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
     abstract function run(int $times);
-    abstract function associate();
 
     public function randomString(): string {
         $randomString = "";
