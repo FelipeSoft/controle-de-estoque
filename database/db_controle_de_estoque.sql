@@ -64,6 +64,7 @@ CREATE TABLE `tb_products`(
     `name` VARCHAR(255) NOT NULL,
     `unit_price` DOUBLE(8, 2) NOT NULL,
     `cost` DOUBLE(8, 2) NOT NULL,
+    `min_stock` INT NOT NULL,
     `category_id` BIGINT UNSIGNED NOT NULL,
     `supplier_id` BIGINT UNSIGNED NOT NULL,
     `created_at` DATETIME NOT NULL,
