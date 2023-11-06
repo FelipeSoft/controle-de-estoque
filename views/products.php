@@ -17,11 +17,6 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                 <form action="../app/actions/insert_product_action.php" class="mb-16">
                     <div class="grid grid-cols-3 gap-6">
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Nome do Produto
-                            <input name="product_name" type="text" placeholder="ex: Impressora RICOH 377"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Custo (R$)
                             <input name="product_cost" type="number" placeholder="ex: 12,78"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">

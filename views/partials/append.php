@@ -6,5 +6,6 @@
 </footer>
 
 <script src="<?= BASE_URL ?>/public/assets/js/status.js"></script>
+<script src="<?= BASE_URL ?>/public/assets/js/transactionModal.js"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
         <div class="flex items-center justify-between">
             <?php require(dirname(__FILE__) . "/config/session.php"); ?>
         </div>
+        <?php require("views/partials/transaction_modal.php"); ?>
         <div class="grid grid-cols-5 mt-10 gap-8">
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
@@ -52,8 +53,10 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                 <div class="grid grid-cols-4 gap-6">
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
                         Nome do Produto
-                        <input type="text" placeholder="ex: Impressora RICOH 377"
+                        <select name="product_category"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
+                            <option value="Eletrônicos">Produto 1</option>
+                        </select>
                     </label>
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
                         Tipo de Transação
@@ -71,16 +74,6 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                             <option value="Venda">Empresa X</option>
                         </select>
                     </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Atendente
-                        <select
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <option value="Compra">Felipe</option>
-                            <option value="Venda">Miguel</option>
-                            <option value="Venda">Tiago</option>
-                            <option value="Venda">Victor</option>
-                        </select>
-                    </label>
                 </div>
 
                 <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
@@ -88,6 +81,9 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
             </form>
         </div>
         <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
+            <div class="flex justify-end items-center w-full'">
+                <button id="open_modal" class="bg-blue-500 text-white rounded-md py-2 px-4 flex items-center justify-center font-bold gap-4"><i class="fa fa-plus text-white"></i> Nova Transação</button>
+            </div>
                 <table class="min-w-full mt-12">
                     <thead class="sticky top-0">
                         <tr class="">
