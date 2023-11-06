@@ -2,9 +2,9 @@
 session_start();
 
 require_once("../../domain/interfaces/IUseCase.php");
-require_once("../../core/View.php");
+require_once("../../core/Controller.php");
 
-final class LoginUserController extends View{
+final class LoginUserController extends Controller{
     public function __construct(
         private readonly IUseCase $usecase
     ) {}
@@ -28,14 +28,14 @@ final class LoginUserController extends View{
                         'role' => $permissionGranted->recoverRole()
                     ]
                 ];
-                View::redirect("/index.php");
+                Controller::redirect("/index.php");
             } else {
                 $_SESSION["flash"] = "E-mail e/ou senha incorretos! Tente novamente.";
-                View::redirect("/views/login.php");
+                Controller::redirect("/views/login.php");
             }
         }
 
         $_SESSION["flash"] = "Dados inválidos! Tente novamente.";
-        View::redirect("/views/login.php");
+        Controller::redirect("/views/login.php");
     }
 }

@@ -2,9 +2,8 @@
 session_start();
 
 require_once("../../domain/interfaces/IUseCase.php");
-require_once("../../core/View.php");
-require_once("../../core/Request.php");
-final class RegisterUserController extends View{
+require_once("../../core/Controller.php");
+final class RegisterUserController extends Controller{
     public function __construct(
         private readonly IUseCase $usecase
     ) {}
@@ -31,14 +30,14 @@ final class RegisterUserController extends View{
                     ]
                 ];
 
-                View::redirect("/index.php");
+                Controller::redirect("/index.php");
             } else {
                 $_SESSION["flash"] = "Dados inválidos! Tente novamente.";
-                View::redirect("/views/register.php");
+                Controller::redirect("/views/register.php");
             }
         }
 
         $_SESSION["flash"] = "Dados inválidos! Tente novamente.";
-        View::redirect("/views/register.php");
+        Controller::redirect("/views/register.php");
     }
 }
