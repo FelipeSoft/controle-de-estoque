@@ -1,4 +1,15 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once(dirname(__FILE__) . "../../database/repository/BuyersRepository.php");
+require_once(dirname(__FILE__) . "../../database/dao/BuyersDataAccessObjectMySQL.php");
+require("../config/config.php");
+
+$dao = new BuyersDataAccessObjectMySQL($connection);
+$repository = new BuyersRepository($dao);
+
+$buyers = $repository->getAllBuyers();
+
 $title = "Clientes - Controle de Estoque";
 $session = "Clientes";
 $session_text = "Cadastre os seus clientes de forma facilitada."
@@ -79,18 +90,44 @@ $session_text = "Cadastre os seus clientes de forma facilitada."
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-2 even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Motorola</td>
-                            <td class="py-2 px-4 text-sm">suporte@motorola.com.br</td>
-                            <td class="py-2 px-4 text-sm">(19) 99999-8888</td>
-                            <td class="py-2 px-4 text-sm">1 ano atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
+                        <?php foreach($buyers as $b): ?>
+                            <tr class="border-2 even:bg-gray-200">
+                                <td class="py-2 px-4 text-sm"><?= $b->buyer_id; ?></td>
+                                <td class="py-2 px-4 text-sm"><?= $b->created_at; ?></td>
+                                <td class="py-2 px-4 text-sm"><?= $b->name; ?></td>
+                                <td class="py-2 px-4 text-sm"><?= $b->email; ?></td>
+                                <td class="py-2 px-4 text-sm"><?= $b->contact_number; ?></td>
+                                <td class="py-2 px-4 text-sm">
+                                    <?php
+                                        $from_database_datetime = $b->updated_at;
+                                        $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
+                                        $now = new DateTime();
+
+                                        $interval = $database_date->diff($now);
+
+                                        $hours = $interval->h;
+                                        $minutes = $interval->i;
+                                        $seconds = $interval->s;
+
+                                        $message = '';
+
+                                        if ($hours > 0) {
+                                            $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
+                                        } elseif ($minutes > 0) {
+                                            $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
+                                        } elseif ($seconds > 0) {
+                                            $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
+                                        }
+
+                                        echo $message;
+                                    ?>
+                                </td>
+                                <td class="p-4 flex items-center justify-center gap-2">
+                                    <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
+                                    <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
