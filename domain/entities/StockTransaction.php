@@ -8,7 +8,7 @@ class StockTransaction {
         public DateTime $register_date,
         public string $status,
         public array $buyers_transactions,
-        public array $suppliers_transactions,
+        public array $suppliers_transactions,  
     ) {
         $this->calculateCurrentStock();
     }
