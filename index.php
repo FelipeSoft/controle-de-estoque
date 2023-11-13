@@ -121,8 +121,8 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                                     <td class="py-2 px-4 text-sm"><?= $transaction["name"]?></td>
                                     <td class="py-2 px-4 text-sm"><?= "R$" .number_format($transaction["unit_price"] , 2, ",", ".")?></td>
                                     <td class="py-2 px-4 text-sm">Compra</td>
-                                    <td class="py-2 px-4 text-sm"><?= isset($transaction["category"]) ? $transaction["category"] : 'N/A'?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $transaction["supplier"]?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["category_name"]?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["supplier_name"]?></td>
                                     <td class="py-2 px-4 text-sm">
                                         <?php
                                          $from_database_datetime = $transaction["updated_at"];
