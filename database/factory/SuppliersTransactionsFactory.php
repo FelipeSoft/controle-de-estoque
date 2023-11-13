@@ -19,7 +19,10 @@ class SuppliersTransactionsFactory extends Factory implements Associable {
             $random_product = random_int(0, sizeof($this->tables_pk_array["tb_products"]) - 1);
             $product_id = $this->tables_pk_array["tb_products"][$random_product]["product_id"];
 
-            $query .= "\n($product_id, $quantity, NOW(), NOW()),";
+            $random_supplier = random_int(0, sizeof($this->tables_pk_array["tb_suppliers"]) - 1);
+            $supplier_id = $this->tables_pk_array["tb_suppliers"][$random_supplier]["supplier_id"];
+
+            $query .= "\n($product_id, $supplier_id, $quantity, NOW(), NOW()),";
         }
 
         $final_query = substr($query, 0 , -1) . ";";
@@ -28,7 +31,7 @@ class SuppliersTransactionsFactory extends Factory implements Associable {
             $statement = $this->connection->prepare($final_query);
             $statement->execute();
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            $e->getMessage();
             exit;
         }
     }

@@ -16,7 +16,9 @@ class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
                         p.min_stock, 
                         c.name AS category_name, 
                         s.name AS supplier_name,
-                        (COALESCE(st.purchase_sum, 0) - COALESCE(bt.sale_sum, 0)) AS current_stock
+                        (COALESCE(st.purchase_sum, 0) - COALESCE(bt.sale_sum, 0)) AS current_stock,
+                        p.created_at,
+                        p.updated_at
                     FROM 
                         db_controle_de_estoque.tb_products AS p
                     JOIN 
@@ -50,7 +52,7 @@ class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
 
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            $e->getMessage();
+            echo $e->getMessage();
             exit;
         }
     }

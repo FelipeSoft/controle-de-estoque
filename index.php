@@ -1,4 +1,13 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once("database/dao/TransactionDataAccessObjectMySQL.php");
+require("config/config.php");
+
+$dao = new TransactionDataAccessObjectMySQL($connection);
+
+$transactions = $dao->joinTransactions();
+
 $title = "Dashboard - Controle de Estoque";
 $session = "Dashboard";
 $session_text = 'Veja todos os pontos <span
@@ -84,36 +93,42 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
             <div class="flex justify-end items-center w-full'">
                 <button id="open_modal" class="bg-blue-500 text-white rounded-md py-2 px-4 flex items-center justify-center font-bold gap-4"><i class="fa fa-plus text-white"></i> Nova Transação</button>
             </div>
-                <table class="min-w-full mt-12">
-                    <thead class="sticky top-0">
-                        <tr class="">
-                            <td class="py-2 px-4 bg-black text-white">ID</td>
-                            <td class="py-2 px-4 bg-black text-white">Registro</td>
-                            <td class="py-2 px-4 bg-black text-white">Produto</td>
-                            <td class="py-2 px-4 bg-black text-white">Preço Unitário</td>
-                            <td class="py-2 px-4 bg-black text-white">Tipo</td>
-                            <td class="py-2 px-4 bg-black text-white">Categoria</td>
-                            <td class="py-2 px-4 bg-black text-white">Origem/Destino</td>
-                            <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
-                            <td class="py-2 px-4 bg-black text-white">Ações</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-2 even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Compra</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <?php if(sizeof($transactions) > 0): ?>
+                    <table class="min-w-full mt-12">
+                        <thead class="sticky top-0">
+                            <tr class="">
+                                <td class="py-2 px-4 bg-black text-white">ID</td>
+                                <td class="py-2 px-4 bg-black text-white">Registro</td>
+                                <td class="py-2 px-4 bg-black text-white">Produto</td>
+                                <td class="py-2 px-4 bg-black text-white">Preço Unitário</td>
+                                <td class="py-2 px-4 bg-black text-white">Tipo</td>
+                                <td class="py-2 px-4 bg-black text-white">Categoria</td>
+                                <td class="py-2 px-4 bg-black text-white">Origem/Destino</td>
+                                <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
+                                <td class="py-2 px-4 bg-black text-white">Ações</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($transactions as $transaction): ?>
+                                <tr class="border-2 even:bg-gray-200">
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["transaction_id"] ?></td>
+                                    <td class="py-2 px-4 text-sm">21/07/2023</td>
+                                    <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
+                                    <td class="py-2 px-4 text-sm">R$ 3889,90</td>
+                                    <td class="py-2 px-4 text-sm">Compra</td>
+                                    <td class="py-2 px-4 text-sm">Eletrônicos</td>
+                                    <td class="py-2 px-4 text-sm">Dell</td>
+                                    <td class="py-2 px-4 text-sm">20 segundos atrás</td>
+                                    <td class="p-4 flex items-center justify-center gap-2">
+                                        <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <?php require("views/partials/not_found.php"); ?>
+                <?php endif; ?>
             </div>
     </section>
 </main>

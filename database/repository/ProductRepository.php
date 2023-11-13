@@ -18,14 +18,17 @@ final class ProductRepository implements IProductRepository {
                 $product["unit_price"],
                 $product["cost"],
                 $product["min_stock"],
-                $product["category_id"],
-                $product["supplier_id"],
+                $product["category_name"],
+                $product["supplier_name"],
                 $product["created_at"],
                 $product["updated_at"],
                 $product["product_id"],
             );
 
-            $data[] = $p;
+            $data[] = [
+                "product" => $p,
+                "current_stock" => $product["current_stock"]
+            ];
         }        
 
         return $data;

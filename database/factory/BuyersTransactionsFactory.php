@@ -9,7 +9,7 @@ class BuyersTransactionsFactory extends Factory implements Associable {
     ) {}
 
     public function run(int $times) {
-        $query = "INSERT INTO tb_buyers_transactions (product_id, quantity, created_at, updated_at) VALUES ";
+        $query = "INSERT INTO tb_buyers_transactions (product_id, buyer_id, quantity, created_at, updated_at) VALUES ";
         
         $this->associate();
 
@@ -19,7 +19,10 @@ class BuyersTransactionsFactory extends Factory implements Associable {
             $random_product = random_int(0, sizeof($this->tables_pk_array["tb_products"]) - 1);
             $product_id = $this->tables_pk_array["tb_products"][$random_product]["product_id"];
 
-            $query .= "\n($product_id, $quantity, NOW(), NOW()),";
+            $random_buyer = random_int(0, sizeof($this->tables_pk_array["tb_buyers"]) - 1);
+            $buyer_id = $this->tables_pk_array["tb_buyers"][$random_buyer]["buyer_id"];
+
+            $query .= "\n($product_id, $buyer_id, $quantity, NOW(), NOW()),";
         }
 
         $final_query = substr($query, 0 , -1) . ";";

@@ -29,11 +29,11 @@ $pf = new ProductFactory($connection, "tb_categories|category_id, tb_suppliers|s
 $pf->rollback();
 $pf->run(20);
 
-$btf = new BuyersTransactionsFactory($connection, "tb_products|product_id");
+$btf = new BuyersTransactionsFactory($connection, "tb_products|product_id, tb_buyers|buyer_id");
 $btf->rollback();
 $btf->run(20);
 
-$stf = new SuppliersTransactionsFactory($connection, "tb_products|product_id");
+$stf = new SuppliersTransactionsFactory($connection, "tb_products|product_id, tb_suppliers|supplier_id");
 $stf->rollback();
 $stf->run(20);
 

@@ -117,23 +117,23 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                         <tbody>
                             <?php foreach($products as $product): ?>
                                 <tr class="border-2 even:bg-gray-200">
-                                    <td class="py-2 px-4 text-sm"><?= $product->recoverProductId(); ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->product_id; ?></td>
                                     <td class="py-2 px-4 text-sm">
                                         <?php 
-                                            $timestamp = strtotime($product->recoverCreatedAt());
+                                            $timestamp = strtotime($product["product"]->created_at);
                                             echo date("d/m/Y", $timestamp);
                                         ?>
                                     </td>
-                                    <td class="py-2 px-4 text-sm"><?= $product->recoverName(); ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product->recoverCost(), 2, ",", "."); ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product->recoverCost() * 1.5, 2, ",", "."); ?></td>
-                                    <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                                    <td class="py-2 px-4 text-sm">Dell</td>
-                                    <td class="py-2 px-4 text-sm"><?= $product->recoverMinStock(); ?></td>
-                                    <td class="py-2 px-4 text-sm">21</td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->name; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product["product"]->cost, 2, ",", "."); ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product["product"]->cost * 1.5, 2, ",", "."); ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->category; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->supplier; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->min_stock; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $product["current_stock"]; ?></td>
                                     <td class="py-2 px-4 text-sm">
                                     <?php
-                                        $from_database_datetime = $product->recoverUpdatedAt();
+                                        $from_database_datetime = $product["product"]->updated_at;
                                         $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
                                         $now = new DateTime();
 
