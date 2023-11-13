@@ -3,7 +3,7 @@ require_once ("../../domain/interfaces/IUserRepository.php");
 require_once ("../../domain/interfaces/IUserDataAccessObject.php");
 require_once ("../../domain/entities/User.php");
 
-class UserRepository implements IUserRepository {
+final class UserRepository implements IUserRepository {
     public function __construct(
         private readonly IUserDataAccessObject $dao 
     ) {}

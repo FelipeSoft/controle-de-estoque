@@ -1,4 +1,4 @@
-DROP DATABASE db_controle_de_estoque;
+DROP DATABASE IF EXISTS db_controle_de_estoque;
 CREATE DATABASE db_controle_de_estoque;
 USE db_controle_de_estoque;
 
@@ -70,22 +70,22 @@ CREATE TABLE `tb_products`(
     `supplier_id` BIGINT UNSIGNED NOT NULL,
     `created_at` DATETIME NOT NULL,
     `updated_at` DATETIME NOT NULL
-); 
-
-ALTER TABLE tb_inventory
-ADD FOREIGN KEY (supplier_id) REFERENCES tb_suppliers (supplier_id);
-
-ALTER TABLE tb_inventory
-ADD FOREIGN KEY (product_id) REFERENCES tb_products (product_id);
-
-ALTER TABLE tb_suppliers_transactions
-ADD FOREIGN KEY (product_id) REFERENCES tb_products (product_id);
-
-ALTER TABLE tb_products
-ADD FOREIGN KEY (category_id) REFERENCES tb_categories (category_id);
-
-ALTER TABLE tb_products
-ADD FOREIGN KEY (supplier_id) REFERENCES tb_suppliers (supplier_id);
+);
 
 ALTER TABLE tb_buyers_transactions
-ADD FOREIGN KEY (product_id) REFERENCES tb_products (product_id);
+ADD FOREIGN KEY (`product_id`) REFERENCES `tb_products`(`product_id`) ON DELETE CASCADE;
+
+ALTER TABLE tb_inventory
+ADD FOREIGN KEY (`product_id`) REFERENCES `tb_products`(`product_id`) ON DELETE CASCADE;
+
+ALTER TABLE tb_inventory
+ADD FOREIGN KEY (`supplier_id`) REFERENCES `tb_suppliers`(`supplier_id`) ON DELETE CASCADE;
+
+ALTER TABLE tb_suppliers_transactions
+ADD FOREIGN KEY (`product_id`) REFERENCES `tb_products`(`product_id`) ON DELETE CASCADE;
+
+ALTER TABLE tb_products
+ADD FOREIGN KEY (`category_id`) REFERENCES `tb_categories`(`category_id`) ON DELETE CASCADE;
+
+ALTER TABLE tb_products
+ADD FOREIGN KEY (`supplier_id`) REFERENCES `tb_suppliers`(`supplier_id`) ON DELETE CASCADE;

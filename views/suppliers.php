@@ -1,4 +1,14 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once(dirname(__FILE__) . "../../database/repository/SupplierRepository.php");
+require_once(dirname(__FILE__) . "../../database/dao/SupplierDataAccessObjectMySQL.php");
+require("../config/config.php");
+
+$dao = new SupplierDataAccessObjectMySQL($connection);
+$repository = new SupplierRepository($dao);
+$suppliers = $repository->getAllSuppliers();
+
 $title = "Fornecedores - Controle de Estoque";
 $session = "Fornecedores";
 $session_text = "Cadastre os seus fornecedores de forma facilitada."
@@ -66,33 +76,63 @@ $session_text = "Cadastre os seus fornecedores de forma facilitada."
                 </form>
             </div>
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
-                <table class="min-w-full mt-12">
-                    <thead class="sticky top-0">
-                        <tr class="">
-                            <td class="py-2 px-4 bg-black text-white">ID</td>
-                            <td class="py-2 px-4 bg-black text-white">Registro</td>
-                            <td class="py-2 px-4 bg-black text-white">Fornecedor</td>
-                            <td class="py-2 px-4 bg-black text-white">E-mail</td>
-                            <td class="py-2 px-4 bg-black text-white">Telefone de Contato</td>
-                            <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
-                            <td class="py-2 px-4 bg-black text-white">Ações</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-2 even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Motorola</td>
-                            <td class="py-2 px-4 text-sm">suporte@motorola.com.br</td>
-                            <td class="py-2 px-4 text-sm">(19) 99999-8888</td>
-                            <td class="py-2 px-4 text-sm">1 ano atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <?php if(sizeof($suppliers) > 0): ?>
+                    <table class="min-w-full mt-12">
+                        <thead class="sticky top-0">
+                            <tr class="">
+                                <td class="py-2 px-4 bg-black text-white">ID</td>
+                                <td class="py-2 px-4 bg-black text-white">Registro</td>
+                                <td class="py-2 px-4 bg-black text-white">Fornecedor</td>
+                                <td class="py-2 px-4 bg-black text-white">E-mail</td>
+                                <td class="py-2 px-4 bg-black text-white">Telefone de Contato</td>
+                                <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
+                                <td class="py-2 px-4 bg-black text-white">Ações</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($suppliers as $p): ?>
+                                <tr class="border-2 even:bg-gray-200">
+                                    <td class="py-2 px-4 text-sm"><?= $p->stakeholder_id; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $p->created_at; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $p->name; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $p->email; ?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $p->contact_number; ?></td>
+                                    <td class="py-2 px-4 text-sm">
+                                        <?php
+                                            $from_database_datetime = $p->updated_at;
+                                            $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
+                                            $now = new DateTime();
+
+                                            $interval = $database_date->diff($now);
+
+                                            $hours = $interval->h;
+                                            $minutes = $interval->i;
+                                            $seconds = $interval->s;
+
+                                            $message = '';
+
+                                            if ($hours > 0) {
+                                                $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
+                                            } elseif ($minutes > 0) {
+                                                $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
+                                            } elseif ($seconds > 0) {
+                                                $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
+                                            }
+
+                                            echo $message;
+                                        ?>
+                                    </td>
+                                    <td class="p-4 flex items-center justify-center gap-2">
+                                        <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
+                                        <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <?php require("partials/not_found.php") ?>
+                <?php endif; ?>
             </div>
         </section>
     </main>

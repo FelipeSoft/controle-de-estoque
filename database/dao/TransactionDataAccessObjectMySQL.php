@@ -1,6 +1,5 @@
 <?php
-require_once ("../../domain/interfaces/ITransactionDataAccessObject.php");
-
+require_once ("../domain/interfaces/ITransactionDataAccessObject.php");
 
 class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
     public function __construct(

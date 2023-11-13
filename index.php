@@ -109,7 +109,6 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                             <td class="py-2 px-4 text-sm">Dell</td>
                             <td class="py-2 px-4 text-sm">20 segundos atrás</td>
                             <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
                                 <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                             </td>
                         </tr>

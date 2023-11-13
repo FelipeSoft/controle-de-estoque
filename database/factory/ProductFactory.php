@@ -44,18 +44,25 @@ class ProductFactory extends Factory implements Associable{
         try {
             $rows = "SELECT product_id FROM tb_products;";
             $exists_rows = $this->connection->prepare($rows);
+            $exists_rows->execute();
 
-            if ($exists_rows->rowCount() < 0) {
-                return;
+            if ($exists_rows->rowCount() > 0) {
+                try {
+                    $query = "DELETE FROM tb_products;
+                    ALTER TABLE tb_products AUTO_INCREMENT = 1;";
+
+                    $statement = $this->connection->prepare($query);
+                    $statement->execute();
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                    exit;
+                }
             }
-            
-            $query = "DELETE FROM tb_products;
-            ALTER TABLE tb_products AUTO_INCREMENT = 1;";
 
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
+            return;
         } catch (PDOException $e) {
-            $e->getMessage();
+            echo $e->getMessage();
+            exit;
         }
     }
 

@@ -27,20 +27,27 @@ class CategoryFactory extends Factory {
 
     public function rollback() {
         try {
-            $rows = "SELECT id FROM tb_categories;";
+            $rows = "SELECT category_id FROM tb_categories;";
             $exists_rows = $this->connection->prepare($rows);
+            $exists_rows->execute();
 
-            if ($exists_rows->rowCount() < 0) {
-                return;
+            if ($exists_rows->rowCount() > 0) {
+                try {
+                    $query = "DELETE FROM tb_categories;
+                    ALTER TABLE tb_categories AUTO_INCREMENT = 1;";
+
+                    $statement = $this->connection->prepare($query);
+                    $statement->execute();
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                    exit;
+                }
             }
-            
-            $query = "DELETE FROM tb_categories;
-            ALTER TABLE tb_categories AUTO_INCREMENT = 1;";
 
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
+            return;
         } catch (PDOException $e) {
             $e->getMessage();
+            exit;
         }
     }
 }

@@ -37,16 +37,22 @@ class SuppliersTransactionsFactory extends Factory implements Associable {
         try {
             $rows = "SELECT product_id FROM tb_suppliers_transactions;";
             $exists_rows = $this->connection->prepare($rows);
+            $exists_rows->execute();
 
-            if ($exists_rows->rowCount() < 0) {
-                return;
+            if ($exists_rows->rowCount() > 0) {
+                try {
+                    $query = "DELETE FROM tb_suppliers_transactions;
+                    ALTER TABLE tb_suppliers_transactions AUTO_INCREMENT = 1;";
+    
+                    $statement = $this->connection->prepare($query);
+                    $statement->execute();
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                    exit;
+                }
             }
-            
-            $query = "DELETE FROM tb_suppliers_transactions;
-            ALTER TABLE tb_suppliers_transactions AUTO_INCREMENT = 1;";
 
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
+            return;
         } catch (PDOException $e) {
             $e->getMessage();
         }

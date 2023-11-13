@@ -85,7 +85,6 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
                             <td class="py-2 px-4 text-sm">21</td>
                             <td class="py-2 px-4 text-sm">20 segundos atrás</td>
                             <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
                                 <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                             </td>
                         </tr>
@@ -102,7 +101,6 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
                             <td class="py-2 px-4 text-sm">21</td>
                             <td class="py-2 px-4 text-sm">20 segundos atrás</td>
                             <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
                                 <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                             </td>
                         </tr>
@@ -119,7 +117,6 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
                             <td class="py-2 px-4 text-sm">21</td>
                             <td class="py-2 px-4 text-sm">20 segundos atrás</td>
                             <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
                                 <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                             </td>
                         </tr>

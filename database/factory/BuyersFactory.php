@@ -29,20 +29,27 @@ class BuyersFactory extends Factory{
 
     public function rollback() {
         try {
-            $rows = "SELECT id FROM tb_buyers;";
+            $rows = "SELECT buyer_id FROM tb_buyers;";
             $exists_rows = $this->connection->prepare($rows);
+            $exists_rows->execute();
 
-            if ($exists_rows->rowCount() <= 0) {
-                return;
+            if ($exists_rows->rowCount() > 0) {
+                try {
+                    $query = "DELETE FROM tb_buyers;
+                    ALTER TABLE tb_buyers AUTO_INCREMENT = 1;";
+        
+                    $statement = $this->connection->prepare($query);
+                    $statement->execute();
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                    exit;
+                }
             }
             
-            $query = "DELETE FROM tb_buyers;
-            ALTER TABLE tb_buyers AUTO_INCREMENT = 1;";
-
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
+            return;
         } catch (PDOException $e) {
-            $e->getMessage();
+            echo $e->getMessage();
+            exit;
         }
     }
 }
