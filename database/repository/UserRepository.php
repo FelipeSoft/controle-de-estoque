@@ -14,10 +14,13 @@ final class UserRepository implements IUserRepository {
     public function findAll(): User {
         
     }
-    public function getUserByEmail(string $email): User {
+    public function getUserByEmail(string $email): User | array {
         $data = $this->dao->getByEmail($email);
-        $created_user = new User($data["name"], $data["email"], $data["password"], $data["access_level"], $data["role"], $data["user_id"]);
-        return $created_user;
+        if (sizeof($data) > 0) {
+            $created_user = new User($data["name"], $data["email"], $data["password"], $data["access_level"], $data["role"], $data["user_id"]);
+            return $created_user;
+        }
+        return [];
     }
     public function findById(int $id): User {
         
