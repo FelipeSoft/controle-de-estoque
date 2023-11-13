@@ -111,14 +111,43 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                         <tbody>
                             <?php foreach($transactions as $transaction): ?>
                                 <tr class="border-2 even:bg-gray-200">
-                                    <td class="py-2 px-4 text-sm"><?= $transaction["transaction_id"] ?></td>
-                                    <td class="py-2 px-4 text-sm">21/07/2023</td>
-                                    <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                                    <td class="py-2 px-4 text-sm">R$ 3889,90</td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["product_id"]?></td>
+                                    <td class="py-2 px-4 text-sm">
+                                    <?php 
+                                        $time =  strtotime($transaction["created_at"]);
+                                        echo date("d/m/Y", $time);
+                                    ?>
+                                    </td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["name"]?></td>
+                                    <td class="py-2 px-4 text-sm"><?= "R$" .number_format($transaction["unit_price"] , 2, ",", ".")?></td>
                                     <td class="py-2 px-4 text-sm">Compra</td>
-                                    <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                                    <td class="py-2 px-4 text-sm">Dell</td>
-                                    <td class="py-2 px-4 text-sm">20 segundos atrás</td>
+                                    <td class="py-2 px-4 text-sm"><?= isset($transaction["category"]) ? $transaction["category"] : 'N/A'?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["supplier"]?></td>
+                                    <td class="py-2 px-4 text-sm">
+                                        <?php
+                                         $from_database_datetime = $transaction["updated_at"];
+                                         $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
+                                         $now = new DateTime();
+
+                                         $interval = $database_date->diff($now);
+
+                                         $hours = $interval->h;
+                                         $minutes = $interval->i;
+                                         $seconds = $interval->s;
+
+                                         $message = '';
+
+                                         if ($hours > 0) {
+                                             $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
+                                         } elseif ($minutes > 0) {
+                                             $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
+                                         } elseif ($seconds > 0) {
+                                             $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
+                                         }
+
+                                         echo $message;
+                                     ?>
+                                    </td>
                                     <td class="p-4 flex items-center justify-center gap-2">
                                         <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                                     </td>
