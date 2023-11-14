@@ -17,7 +17,7 @@ final class LoginUserController extends Controller{
                 "email" => $input_email,
                 "password"=> $input_password
             ]); 
-
+            
             if ($permissionGranted) {
                 $_SESSION['authorization'] = [
                     'status' => true,
@@ -29,10 +29,10 @@ final class LoginUserController extends Controller{
                     ]
                 ];
                 Controller::redirect("/index.php");
-            } else {
-                $_SESSION["flash"] = "E-mail e/ou senha incorretos! Tente novamente.";
-                Controller::redirect("/views/login.php");
-            }
+            } 
+
+            $_SESSION["flash"] = "E-mail e/ou senha incorretos! Tente novamente.";
+            Controller::redirect("/views/login.php");
         }
 
         $_SESSION["flash"] = "Dados inválidos! Tente novamente.";

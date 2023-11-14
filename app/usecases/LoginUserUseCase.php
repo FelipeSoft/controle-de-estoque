@@ -9,7 +9,7 @@ final class LoginUserUseCase implements IUseCase {
     public function execute(array $args): User | bool{
         $user = $this->repository->getUserByEmail($args["email"]);
 
-        if ($user !== null) {
+        if ($user !== []) {
             $passwordFromDatabase = $user->recoverPassword();
             if (password_verify($args["password"], $passwordFromDatabase)) {
                 return $user;
