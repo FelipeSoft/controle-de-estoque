@@ -43,7 +43,6 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
                             p.name, 
                             p.cost, 
                             p.unit_price, 
-                            p.min_stock, 
                             c.name AS category_name, 
                             s.name AS supplier_name,
                             (COALESCE(st.purchase_sum, 0) - COALESCE(bt.sale_sum, 0)) AS current_stock,

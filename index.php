@@ -120,7 +120,7 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                                     </td>
                                     <td class="py-2 px-4 text-sm"><?= $transaction["name"]?></td>
                                     <td class="py-2 px-4 text-sm"><?= "R$" .number_format($transaction["unit_price"] , 2, ",", ".")?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $transaction["type"]? "Venda": "Compra";?></td>
+                                    <td class="py-2 px-4 text-sm"><?= $transaction["type"] ? "Venda" : "Compra";?></td>
                                     <td class="py-2 px-4 text-sm"><?= $transaction["category_name"]?></td>
                                     <td class="py-2 px-4 text-sm"><?= $transaction["supplier_name"]?></td>
                                     <td class="py-2 px-4 text-sm">

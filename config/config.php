@@ -3,7 +3,7 @@ require_once(dirname(__FILE__) ."../../core/Connection.php");
 
 define("DB_NAME", "db_controle_de_estoque");
 define("DB_USERNAME", "root");
-define("DB_PASSWORD", "aluno123");
+define("DB_PASSWORD", "(th@SOLUT#1339)");
 define("DB_HOST", "localhost");
 define("DB_PORT", "3306");
 define("DB_DRIVER", "mysql");
