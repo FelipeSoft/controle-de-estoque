@@ -14,7 +14,16 @@ $session_text = 'Veja todos os pontos <span
 class="text-green-500 font-semibold">fortes</span> e <span
 class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de segundos.';
 ?>
+<?php
 
+$totalTransactionAmount = 0; 
+
+foreach ($transactions as $transaction) {
+
+    $totalTransactionAmount += $transaction["transaction_amount"];
+}
+
+?>
 <?php require("views/partials/metadata.php"); ?>
 <main class="w-screen">
     <?php require("views/partials/header.php"); ?>
@@ -32,8 +41,8 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
                 <h2 class="text-lg font-semibold text-center">Receita Total</h2>
-            >
-                <h1 class="text-xl text-center font-bold"><?= $transactions["transaction_amount"]?></h1>
+            
+                <h1 class="text-xl text-center font-bold"><?= "R$" . number_format($totalTransactionAmount, 2, ",", ".") ?></h1>
             </div>
             <div
                 class="w-full bg-green-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-green-300 text-green-500">
