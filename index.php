@@ -28,11 +28,12 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
                 <h2 class="text-lg font-semibold text-center">Produtos</h2>
                 <h1 class="text-xl text-center font-bold">208</h1>
-            </div>
+            </div>  
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
                 <h2 class="text-lg font-semibold text-center">Receita Total</h2>
-                <h1 class="text-xl text-center font-bold">R$ 10.809.479,91</h1>
+            >
+                <h1 class="text-xl text-center font-bold"><?= $transactions["transaction_amount"]?></h1>
             </div>
             <div
                 class="w-full bg-green-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-green-300 text-green-500">
