@@ -19,8 +19,8 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
 $totalTransactionAmount = 0; 
 
 foreach ($transactions as $transaction) {
-
     $totalTransactionAmount += $transaction["transaction_amount"];
+    $totalStock += $transaction["current_stock"];
 }
 
 ?>
@@ -36,7 +36,7 @@ foreach ($transactions as $transaction) {
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
                 <h2 class="text-lg font-semibold text-center">Produtos</h2>
-                <h1 class="text-xl text-center font-bold">208</h1>
+                <h1 class="text-xl text-center font-bold"><?= $totalStock?></h1>
             </div>  
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
