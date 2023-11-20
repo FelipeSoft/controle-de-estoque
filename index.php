@@ -13,16 +13,20 @@ $session = "Dashboard";
 $session_text = 'Veja todos os pontos <span
 class="text-green-500 font-semibold">fortes</span> e <span
 class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de segundos.';
+
+
 ?>
 <?php
 
 $totalTransactionAmount = 0; 
-
+$totalStock = 0;
 foreach ($transactions as $transaction) {
     $totalTransactionAmount += $transaction["transaction_amount"];
+    
+}
+foreach($transactions as $transaction){
     $totalStock += $transaction["current_stock"];
 }
-
 ?>
 <?php require("views/partials/metadata.php"); ?>
 <main class="w-screen">
@@ -44,6 +48,7 @@ foreach ($transactions as $transaction) {
             
                 <h1 class="text-xl text-center font-bold"><?= "R$" . number_format($totalTransactionAmount, 2, ",", ".") ?></h1>
             </div>
+
             <div
                 class="w-full bg-green-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-green-300 text-green-500">
                 <h2 class="text-lg font-semibold text-center">Favoráveis</h2>
@@ -68,13 +73,22 @@ foreach ($transactions as $transaction) {
                 <p class="text-gray-500">Todas as transações relacionadas a compras e vendas.</p>
             </div>
             <h1 class="mt-10 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-            <form action="">
+            <form action="index.php" method="POST">
                 <div class="grid grid-cols-4 gap-6">
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
                         Nome do Produto
                         <select name="product_category"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <option value="Eletrônicos">Produto 1</option>
+                            <option value="Eletrônicos">Selecione...
+                            <?php
+                                // Consulta para obter todas as categorias distintas da tabela
+                                $sql = "SELECT * FROM tb_products";
+                                while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+                                    $selected = isset($_POST['product_category']) && $_POST['product_category'] == $row['name'] ? 'selected' : '';
+                                    echo "<option value='{$row['name']}' $selected>{$row['name']}</option>";
+                                }
+                            ?>
+                            </option>
                         </select>
                     </label>
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">

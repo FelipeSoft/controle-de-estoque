@@ -80,7 +80,8 @@ LEFT JOIN (
 ) AS bt ON p.product_id = bt.product_id
 
 ORDER BY p.product_id ASC;
-";
+";          
+            
                         
             $statement = $this->connection->prepare($query);
             $statement->execute();
@@ -91,7 +92,7 @@ ORDER BY p.product_id ASC;
 
             return[];
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            echo $e->getMessage(); 
             exit;
         }
     }
