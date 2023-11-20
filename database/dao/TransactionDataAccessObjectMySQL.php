@@ -95,5 +95,20 @@ ORDER BY p.product_id ASC;
             echo $e->getMessage(); 
             exit;
         }
+
+    }
+    public function getAvailableCategories(){
+        try{
+            $sql = "SELECT c.name FROM tb_products AS p JOIN tb_categories AS c ON c.category_id = p.category_id GROUP BY c.name;";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute();
+            if($statement->rowCount()) {
+                return $statement->fetchAll(PDO::FETCH_ASSOC);
+            }
+            return [];
+        }catch(PDOException $error){
+            echo $error->getMessage();
+            exit; 
+        }
     }
 }

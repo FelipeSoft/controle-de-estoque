@@ -14,7 +14,7 @@ $session_text = 'Veja todos os pontos <span
 class="text-green-500 font-semibold">fortes</span> e <span
 class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de segundos.';
 
-
+$categories = $dao->getAvailableCategories();
 ?>
 <?php
 
@@ -79,16 +79,11 @@ foreach($transactions as $transaction){
                         Nome do Produto
                         <select name="product_category"
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <option value="Eletrônicos">Selecione...
                             <?php
-                                // Consulta para obter todas as categorias distintas da tabela
-                                $sql = "SELECT * FROM tb_products";
-                                while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-                                    $selected = isset($_POST['product_category']) && $_POST['product_category'] == $row['name'] ? 'selected' : '';
-                                    echo "<option value='{$row['name']}' $selected>{$row['name']}</option>";
+                                foreach($categories as $category) {
+                                    echo "<option value='". $category["name"] . "'>" . $category["name"] . "</option>";;
                                 }
-                            ?>
-                            </option>
+                             ?>
                         </select>
                     </label>
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
@@ -109,8 +104,8 @@ foreach($transactions as $transaction){
                     </label>
                 </div>
 
-                <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                <a href="" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
+                <a href="app/actions/filter_transactions.php" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
+                <a href="app/actions/remove_filter_transactions.php" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
             </form>
         </div>
         <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
