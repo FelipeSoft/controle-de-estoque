@@ -88,7 +88,7 @@ app.layout = dbc.Container(children=[
                 dbc.CardBody([
                     dbc.Row([
                      dbc.Col([
-                         html.Legend("Analise dos preços da Gasolina")
+                         html.Legend("Analise de vendas anual")
                      ], sm=8),
                      dbc.Col([
                          html.I(className='fa fa-filter',
@@ -104,8 +104,8 @@ app.layout = dbc.Container(children=[
                     dbc.Row([
                         dbc.Col(
                              dbc.Button(
-            ["Visite  ", html.I(className="fab fa-github",  style={'font-size': '100%'})],
-            href="https://github.com/tiago-py", target="_blank",
+            ["Voltar  ", html.I(className="fab fa-github",  style={'font-size': '100%'})],
+            href="https://localhost/controle_de_estoque", target="_blank",
             className="m-1",
         ),
                         )
