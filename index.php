@@ -3,7 +3,6 @@ date_default_timezone_set('America/Sao_Paulo');
 
 require_once("database/dao/TransactionDataAccessObjectMySQL.php");
 require("config/config.php");
-
 $dao = new TransactionDataAccessObjectMySQL($connection);
 
 $transactions = $dao->joinTransactions();
@@ -76,53 +75,6 @@ foreach ($transactions as $transaction) {
                 <h1 class="font-bold text-2xl">Transações</h1>
                 <p class="text-gray-500">Todas as transações relacionadas a compras e vendas.</p>
             </div>
-            <h1 class="mt-10 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-            <form action="index.php" method="POST">
-                <div class="grid grid-cols-4 gap-6">
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Nome do Produto
-                        <select name="product_category"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($categories as $category) {
-                                echo "<option value='" . $category["name"] . "'>" . $category["name"] . "</option>";
-                                ;
-                            }
-                            ?>
-                        </select>
-                    </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Tipo de Transação
-                        <select
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($transactions as $transaction) {
-                                echo "<option value='" . $transaction["type"] ? "Venda" : "Compra" . "'>" . ($transaction["type"] ? "Venda" : "Compra") . "</option>";
-                                ;
-                            }
-                            ?>
-                        </select>
-                    </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Origem/Destino
-                        <select
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($transactions as $transaction) {
-                                echo "<option value='" . $transaction["supplier_name"] . "'>" . $transaction["supplier_name"] . "</option>";
-                                ;
-                            }
-                            ?>
-                        </select>
-                    </label>
-                </div>
-
-                <a href="app/actions/filter_transactions.php"
-                    class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                <a href="app/actions/remove_filter_transactions.php"
-                    class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-            </form>
-        </div>
         <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
             <div class="flex justify-end items-center w-full'">
                 <button id="open_modal"
@@ -198,23 +150,8 @@ foreach ($transactions as $transaction) {
                                 </td>
                                 <td class="p-4 flex items-center justify-center gap-2">
                                     <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">
-                                        <?php
-                                        function clearData()
-                                        {
-                                            try {
-                                                $sql = "DELETE * FROM tb_products WHERE tb_products.id = $transactions->product_id";
-                                                $statement = $this->connection->prepare($sql);
-                                                $statement->execute();
-                                                if ($statement->rowCount()) {
-                                                    return $statement->fetchAll(PDO::FETCH_ASSOC);
-                                                }
-                                                return [];
-                                            } catch (PDOException $error) {
-                                                echo $error->getMessage();
-                                                exit;
-                                            }
-                                        }
-                                        ?>Excluir
+                                        <?php//tem que chamar a função clearData passando $transactions[product_id] como parametro?>
+                                        Excluir
                                     </a>
                                 </td>
                             </tr>

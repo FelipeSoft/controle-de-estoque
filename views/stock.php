@@ -1,4 +1,15 @@
 <?php
+date_default_timezone_set('America/Sao_Paulo');
+
+require_once(dirname(__FILE__) . "../../database/repository/ProductRepository.php");
+require_once(dirname(__FILE__) . "../../database/dao/ProductDataAccessObjectMySQL.php");
+require("../config/config.php");
+
+$dao = new ProductDataAccessObjectMySQL($connection);
+$repository = new ProductRepository($dao);
+
+$products = $repository->getAllProducts();
+
 $title = "Estoque - Controle de Estoque";
 $session = "Estoque";
 $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
@@ -9,51 +20,9 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
         <?php require("./partials/header.php"); ?>
         <section class="mx-auto container my-10">
             <?php require("../config/session.php"); ?>
-            <div>
-                <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-                <form action="">
-                    <div class="grid grid-cols-4 gap-6">
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Nome do Produto
-                            <input type="text" placeholder="ex: Impressora RICOH 377"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Status
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Favorável">Favorável</option>
-                                <option value="Atenção">Atenção</option>
-                                <option value="Crítico">Crítico</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Fornecedor
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Motorola">Motorola</option>
-                                <option value="Empresa">Empresa X</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Atendente
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Compra">Felipe</option>
-                                <option value="Venda">Miguel</option>
-                                <option value="Venda">Tiago</option>
-                                <option value="Venda">Victor</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                        <a href="" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-                    </div>
-                </form>
-            </div>
+               
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
+            <?php if(sizeof($products) > 0): ?>
                 <table class="min-w-full mt-12" id="stock_table">
                     <thead class="sticky top-0">
                         <tr class="">
@@ -72,12 +41,18 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
                         </tr>
                     </thead>
                     <tbody>
+                    <?php foreach($products as $product): ?>
                         <tr class="even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
+                            <td class="py-2 px-4 text-sm"><?= $product["product"]->product_id; ?></td>
+                            <td class="py-2 px-4 text-sm">
+                            <?php 
+                                $timestamp = strtotime($product["product"]->created_at);
+                                echo date("d/m/Y", $timestamp);
+                            ?>
+                            </td>
+                            <td class="py-2 px-4 text-sm"><?= $product["product"]->name; ?></td>
                             <td class="py-2 px-4 text-sm font-bold">Favorável</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
+                            <td class="py-2 px-4 text-sm"><?= "R$" . number_format($product["product"]->cost, 2, ",", "."); ?></td>
                             <td class="py-2 px-4 text-sm">R$ 3889,90</td>
                             <td class="py-2 px-4 text-sm">Eletrônicos</td>
                             <td class="py-2 px-4 text-sm">Dell</td>
@@ -88,40 +63,12 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
                                 <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                             </td>
                         </tr>
-                        <tr class="even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm font-bold">Crítico</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
-                        <tr class="even:bg-gray-200">
-                            <td class="py-2 px-4 text-sm">1</td>
-                            <td class="py-2 px-4 text-sm">21/07/2023</td>
-                            <td class="py-2 px-4 text-sm">Notebook I5 8GB RAM SSD 256GB</td>
-                            <td class="py-2 px-4 text-sm font-bold">Atenção</td>
-                            <td class="py-2 px-4 text-sm">R$ 2.098,71</td>
-                            <td class="py-2 px-4 text-sm">R$ 3889,90</td>
-                            <td class="py-2 px-4 text-sm">Eletrônicos</td>
-                            <td class="py-2 px-4 text-sm">Dell</td>
-                            <td class="py-2 px-4 text-sm">10</td>
-                            <td class="py-2 px-4 text-sm">21</td>
-                            <td class="py-2 px-4 text-sm">20 segundos atrás</td>
-                            <td class="p-4 flex items-center justify-center gap-2">
-                                <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
-                            </td>
-                        </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php else: ?>
+                    <?php require("partials/not_found.php") ?>
+                <?php endif; ?>
             </div>
         </section>
     </main>

@@ -63,38 +63,7 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                         <button class="bg-blue-500 py-2 px-4 text-white rounded-md">CADASTRAR</button>
                     </div>
                 </form>
-            </div>
-            <div>
-                <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-                <form action="">
-                    <div class="grid grid-cols-3 gap-6">
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Nome do Produto
-                            <input type="text" placeholder="ex: Impressora RICOH 377"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Categoria
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Eletrônicos">Eletrônicos</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Fornecedor
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Motorola">Motorola</option>
-                                <option value="Empresa">Empresa X</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                        <a href="" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-                    </div>
-                </form>
+</div>
             </div>
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
                 <?php if(sizeof($products) > 0): ?>

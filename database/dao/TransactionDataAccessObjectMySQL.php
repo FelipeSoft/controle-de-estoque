@@ -3,7 +3,7 @@ require_once("domain/interfaces/ITransactionDataAccessObject.php");
 
 class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
     public function __construct(
-        private readonly PDO $connection
+        private PDO $connection
     ) {}
 
     public function getProductIdByName(string $name) {
@@ -27,9 +27,10 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
     public function assign(Transaction $transaction) {
         try {
             $query = "INSERT INTO tb_transaction_buyers (product_id, quantity, created_at, updated_at) VALUES (:product_id, :quantity, NOW(), NOW())";
-            $query->bindValue(":product_id", $transaction->product_id);
-            $query->bindValue(":quantity", $transaction->quantity);
-            $query->execute();
+            $statement = $this->connection->prepare($query);
+            $statement->bindValue(":product_id", $transaction->product_id);
+            $statement->bindValue(":quantity", $transaction->quantity);
+            $statement->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit;
@@ -39,50 +40,48 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
     public function joinTransactions() {
         try {
             $query = "SELECT 
-    p.product_id,
-    p.name, 
-    p.cost, 
-    p.unit_price, 
-    c.name AS category_name, 
-    s.name AS supplier_name,
-    (COALESCE(st.purchase_sum, 0) - COALESCE(bt.sale_sum, 0)) AS current_stock,
-    p.created_at,
-    p.updated_at,
-    CASE 
-        WHEN st.purchase_sum IS NOT NULL THEN 'Compra'
-        WHEN bt.sale_sum IS NOT NULL THEN 'Venda'
-    END AS type,
-    COALESCE(st.purchase_sum, bt.sale_sum, 0) AS transaction_amount
-FROM 
-    db_controle_de_estoque.tb_products AS p
-JOIN 
-    db_controle_de_estoque.tb_categories AS c ON p.category_id = c.category_id
-LEFT JOIN 
-    db_controle_de_estoque.tb_suppliers AS s ON p.supplier_id = s.supplier_id
-LEFT JOIN (
-    SELECT 
-        product_id,
-        SUM(quantity) AS purchase_sum
-    FROM 
-        db_controle_de_estoque.tb_suppliers_transactions
-    GROUP BY 
-        product_id
-) AS st ON p.product_id = st.product_id
+                p.product_id,
+                p.name, 
+                p.cost, 
+                p.unit_price, 
+                c.name AS category_name, 
+                s.name AS supplier_name,
+                (COALESCE(st.purchase_sum, 0) - COALESCE(bt.sale_sum, 0)) AS transaction_amount,
+                p.created_at,
+                p.updated_at,
+                CASE 
+                    WHEN st.purchase_sum IS NOT NULL THEN 'Compra'
+                    WHEN bt.sale_sum IS NOT NULL THEN 'Venda'
+                END AS type,
+                COALESCE(st.purchase_sum, bt.sale_sum, 0) AS current_stock
+            FROM 
+                db_controle_de_estoque.tb_products AS p
+            JOIN 
+                db_controle_de_estoque.tb_categories AS c ON p.category_id = c.category_id
+            LEFT JOIN 
+                db_controle_de_estoque.tb_suppliers AS s ON p.supplier_id = s.supplier_id
+            LEFT JOIN (
+                SELECT 
+                    product_id,
+                    SUM(quantity) AS purchase_sum
+                FROM 
+                    db_controle_de_estoque.tb_suppliers_transactions
+                GROUP BY 
+                    product_id
+            ) AS st ON p.product_id = st.product_id
 
-LEFT JOIN (
-    SELECT 
-        product_id,
-        SUM(quantity) AS sale_sum
-    FROM 
-        db_controle_de_estoque.tb_buyers_transactions
-    GROUP BY 
-        product_id
-) AS bt ON p.product_id = bt.product_id
+            LEFT JOIN (
+                SELECT 
+                    product_id,
+                    SUM(quantity) AS sale_sum
+                FROM 
+                    db_controle_de_estoque.tb_buyers_transactions
+                GROUP BY 
+                    product_id
+            ) AS bt ON p.product_id = bt.product_id
 
-ORDER BY p.product_id ASC;
-";          
-            
-                        
+            ORDER BY p.product_id ASC;";
+
             $statement = $this->connection->prepare($query);
             $statement->execute();
 
@@ -97,6 +96,7 @@ ORDER BY p.product_id ASC;
         }
 
     }
+
     public function getAvailableCategories(){
         try{
             $sql = "SELECT c.name FROM tb_products AS p JOIN tb_categories AS c ON c.category_id = p.category_id GROUP BY c.name;";
@@ -111,4 +111,15 @@ ORDER BY p.product_id ASC;
             exit; 
         }
     }
+
+    public function clearData($id){
+        try{
+            $sql = "DELETE FROM tb_products WHERE product_id = $id"; 
+            $statement = $this->connection->prepare($sql);
+            $statement->execute();
+        }catch(PDOException $error){
+            echo $error->getMessage();
+            exit; 
+        }
+    }    
 }
