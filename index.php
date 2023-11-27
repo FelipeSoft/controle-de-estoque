@@ -141,7 +141,6 @@ foreach ($transactions as $transaction) {
                             <td class="py-2 px-4 bg-black text-white">Categoria</td>
                             <td class="py-2 px-4 bg-black text-white">Origem/Destino</td>
                             <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
-                            <td class="py-2 px-4 bg-black text-white">Ações</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -195,11 +194,6 @@ foreach ($transactions as $transaction) {
 
                                     echo $message;
                                     ?>
-                                </td>
-                                <td class="p-4 flex items-center justify-center gap-2">
-                                    <a href="app/actions/delete_transaction.php" class="bg-red-500 py-2 px-4 text-white rounded-md">
-                                        Excluir
-                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

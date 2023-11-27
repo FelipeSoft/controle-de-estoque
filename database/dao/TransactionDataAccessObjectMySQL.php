@@ -1,5 +1,5 @@
 <?php
-require_once("domain/interfaces/ITransactionDataAccessObject.php");
+require_once(dirname(__FILE__) . "../../../domain/interfaces/ITransactionDataAccessObject.php");
 
 class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
     public function __construct(
@@ -24,12 +24,13 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
         }
     }
 
-    public function assign(Transaction $transaction) {
+    public function assign(array $transaction) {
         try {
             $query = "INSERT INTO tb_transaction_buyers (product_id, quantity, created_at, updated_at) VALUES (:product_id, :quantity, NOW(), NOW())";
-            $query->bindValue(":product_id", $transaction->product_id);
-            $query->bindValue(":quantity", $transaction->quantity);
-            $query->execute();
+            $statement = $this->connection->prepare($query);
+            $statement->bindValue(":product_id", $transaction["product_id"]);
+            $statement->bindValue(":quantity", $transaction["quantity"]);
+            $statement->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
             exit;
