@@ -69,7 +69,28 @@ class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
         }
     }
 
-    public function safe() {
-        
+    public function save(array $product) {
+        try {
+            $query = "INSERT INTO tb_products (name, unit_price, cost, min_stock, category_id, supplier_id, created_at, updated_at) VALUES ('Produto de Teste', :unit_price, :cost, :min_stock, 1, 1, NOW(), NOW())";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":unit_price", $product["unit_price"]);
+            $stmt->bindValue(":cost", $product["cost"]);
+            $stmt->bindValue(":min_stock", $product["min_stock"]);
+            $stmt->execute($product);
+        } catch (PDOException $e) { 
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    public function remove($id) {
+        try {
+            $query = "DELETE FROM tb_products WHERE product_id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+        } catch (PDOException $e) { 
+            echo $e->getMessage();
+            exit;
+        }
     }
 }

@@ -39,4 +39,28 @@ class SupplierDataAccessObjectMySQL implements ISupplierDataAccessObject {
             exit;
         }
     }
+    public function save(array $supplier) {
+        try {
+            $query = "INSERT INTO tb_suppliers (name, email, contact_number, created_at, updated_at) VALUES (:name, :email, :contact_number, NOW(), NOW())";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":name", $supplier["name"]);
+            $stmt->bindValue(":email", $supplier["email"]);
+            $stmt->bindValue(":contact_number", $supplier["contact_number"]);
+            $stmt->execute($supplier);
+        } catch (PDOException $e) { 
+            echo $e->getMessage();
+            exit;
+        }
+    }
+    public function remove($id) {
+        try {
+            $query = "DELETE FROM tb_suppliers WHERE supplier_id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+        } catch (PDOException $e) { 
+            echo $e->getMessage();
+            exit;
+        }
+    }
 }

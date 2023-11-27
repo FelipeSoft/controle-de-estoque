@@ -92,64 +92,8 @@ $totalStock = $product_dao->count()["count"] ?? 0;
     </section>
     <section class="my-10 container mx-auto">
         <div>
-            <div>
-                <h1 class="font-bold text-2xl">Transações</h1>
-                <p class="text-gray-500">Todas as transações relacionadas a compras e vendas.</p>
-            </div>
-            <h1 class="mt-10 text-blue-500 font-bold text-2xl mb-2">Adicionar Transação</h1>
-            <form action="index.php" method="POST">
-                <div class="grid grid-cols-4 gap-6">
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Produto
-                        <select name="product_name"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($products as $product_tl) {
-                                $product_to_list = explode(" ", $product_tl["product"]->name)[0] . " " . $product_tl["product"]->product_id;
-                                echo "<option value='" . $product_to_list . "'>" . $product_to_list . "</option>";
-                                ;
-                            }
-                            ?>
-                        </select>
-                    </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Categoria
-                        <select name="product_category"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($categories as $category) {
-                                echo "<option value='" . $category["name"] . "'>" . $category["name"] . "</option>";
-                                ;
-                            }
-                            ?>
-                        </select>
-                    </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Tipo de Transação
-                        <select name="product_type"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <option value="Venda">Venda</option>
-                            <option value="Compra">Compra</option>
-                        </select>
-                    </label>
-                    <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                        Origem/Destino
-                        <select name="product_origin"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($suppliers as $sup) {
-                                echo "<option value='" . $sup["name"] . "'>" . $sup["name"] . "</option>";
-                            }
-                            ?>
-                        </select>
-                    </label>
-                </div>
-
-                <a href="app/actions/filter_transactions.php"
-                    class="bg-blue-500 py-2 px-4 text-white rounded-md">INSERIR</a>
-                <a href="app/actions/remove_filter_transactions.php"
-                    class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-            </form>
+            <h1 class="font-bold text-2xl">Transações</h1>
+            <p class="text-gray-500">Todas as transações relacionadas a compras e vendas.</p>
         </div>
         <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
             <?php if (sizeof($transactions) > 0): ?>

@@ -20,12 +20,16 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
         <?php require("./partials/header.php"); ?>
         <section class="mx-auto container my-10">
             <?php require("../config/session.php"); ?>
-            <div class="w-full h-max bg-green-200 mt-8 p-4 text-green-700 border-2 border-green-300 rounded-md">
-                Produto cadastrado com sucesso!
+                <?php
+                    if(isset($_SESSION['flash_product'])) {
+                        echo '<div class="w-full h-max bg-red-200 mt-8 p-4 text-red-700 border-2 border-red-300 rounded-md">' . $_SESSION['flash_product'] . '</div>';
+                        unset($_SESSION['flash_product']);
+                    }
+                ?>
             </div>
             <div>
                 <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Cadastro de Produtos</h1>
-                <form action="../app/actions/insert_product_action.php" class="mb-16">
+                <form action="../app/actions/new_product.php" method="POST" class="mb-16">
                     <div class="grid grid-cols-3 gap-6">
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Custo (R$)
@@ -38,24 +42,9 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                         </label>
                         <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Categoria
-                            <select name="product_category"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Eletrônicos">Eletrônicos</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
                             Estoque Mínimo
                             <input name="product_min_stock" type="number" placeholder="ex: 20"
                                 class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Fornecedor
-                            <select name="product_supplier"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Motorola">Motorola</option>
-                                <option value="Empresa">Empresa X</option>
-                            </select>
                         </label>
                     </div>
 
@@ -139,7 +128,7 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                                     </td>
                                     <td class="p-4 flex items-center justify-center gap-2">
                                         <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
-                                        <a href="" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
+                                        <a href="<?= BASE_URL ?>/app/actions/remove_product.php?product_id=<?=$product["product"]->product_id?>" class="bg-red-500 py-2 px-4 text-white rounded-md">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
