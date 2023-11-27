@@ -69,15 +69,7 @@ class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
         }
     }
 
-    public function calculateTotalGains() {
-        try {   
-            $query = "SELECT  FROM tb_products";
-            $statement = $this->connection->prepare($query);
-            $statement->execute();
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            exit;
-        }
+    public function safe() {
+        
     }
 }

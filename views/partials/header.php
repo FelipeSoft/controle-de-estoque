@@ -12,9 +12,6 @@ $BASE_URL = "http://localhost/controle-de-estoque";
                         href="<?= $BASE_URL ?>/">Dashboard</a></li>
                 <li class="ml-5 h-full flex items-center justify-center"><a
                         class="text-white flex items-center justify-center px-4 text-lg hover:bg-white hover:text-blue-500 transition-all h-full"
-                        href="<?= $BASE_URL ?>/views/stock.php">Estoque</a></li>
-                <li class="ml-5 h-full flex items-center justify-center"><a
-                        class="text-white flex items-center justify-center px-4 text-lg hover:bg-white hover:text-blue-500 transition-all h-full"
                         href="<?= $BASE_URL ?>/views/products.php">Produtos</a></li>
                 <li class="ml-5 h-full flex items-center justify-center"><a
                         class="text-white flex items-center justify-center px-4 text-lg hover:bg-white hover:text-blue-500 transition-all h-full"

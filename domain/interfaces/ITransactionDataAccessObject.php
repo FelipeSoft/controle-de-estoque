@@ -5,5 +5,4 @@ interface ITransactionDataAccessObject {
     public function joinTransactions();
     public function assign(array $transaction);
     public function getAvailableCategories();
-    public function remove(string $id);
 }

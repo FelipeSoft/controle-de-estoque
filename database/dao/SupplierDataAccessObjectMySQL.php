@@ -25,7 +25,7 @@ class SupplierDataAccessObjectMySQL implements ISupplierDataAccessObject {
 
     public function getAvailableSuppliers() {
         try {
-            $query = "SELECT name FROM tb_suppliers";
+            $query = "SELECT name FROM tb_suppliers GROUP BY name;";
             $statement = $this->connection->prepare($query);
             $statement->execute();
 

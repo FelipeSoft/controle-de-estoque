@@ -1,7 +1,7 @@
 <?php
-require_once ("../domain/interfaces/IProductRepository.php");
-require_once ("../domain/interfaces/IProductDataAccessObject.php");
-require_once ("../domain/entities/Product.php");
+require_once (dirname(__FILE__) . "../../../domain/interfaces/IProductRepository.php");
+require_once (dirname(__FILE__) . "../../../domain/interfaces/IProductDataAccessObject.php");
+require_once (dirname(__FILE__) . "../../../domain/entities/Product.php");
 
 final class ProductRepository implements IProductRepository {
     public function __construct(

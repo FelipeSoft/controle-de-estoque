@@ -1,12 +1,15 @@
 <?php
 require_once(dirname(__FILE__) . "../../../domain/interfaces/ITransactionDataAccessObject.php");
 
-class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
+class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject
+{
     public function __construct(
         private readonly PDO $connection
-    ) {}
+    ) {
+    }
 
-    public function getProductIdByName(string $name) {
+    public function getProductIdByName(string $name)
+    {
         try {
             $query = "SELECT product_id FROM tb_products WHERE name = :name";
             $statement = $this->connection->prepare($query);
@@ -24,7 +27,8 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
         }
     }
 
-    public function assign(array $transaction) {
+    public function assign(array $transaction)
+    {
         try {
             $query = "INSERT INTO tb_transaction_buyers (product_id, quantity, created_at, updated_at) VALUES (:product_id, :quantity, NOW(), NOW())";
             $statement = $this->connection->prepare($query);
@@ -37,7 +41,8 @@ class TransactionDataAccessObjectMySQL implements ITransactionDataAccessObject {
         }
     }
 
-    public function joinTransactions() {
+    public function joinTransactions()
+    {
         try {
             $query = "SELECT 
     p.product_id,
@@ -81,47 +86,47 @@ LEFT JOIN (
 ) AS bt ON p.product_id = bt.product_id
 
 ORDER BY p.product_id ASC;
-";          
-            
-                        
+";
             $statement = $this->connection->prepare($query);
             $statement->execute();
 
-            if($statement->rowCount() > 0) {
+            if ($statement->rowCount() > 0) {
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
 
-            return[];
+            return [];
         } catch (PDOException $e) {
-            echo $e->getMessage(); 
+            echo $e->getMessage();
             exit;
         }
 
     }
-    public function getAvailableCategories(){
-        try{
+    public function getAvailableCategories()
+    {
+        try {
             $sql = "SELECT c.name FROM tb_products AS p JOIN tb_categories AS c ON c.category_id = p.category_id GROUP BY c.name;";
             $statement = $this->connection->prepare($sql);
             $statement->execute();
-            if($statement->rowCount()) {
+            if ($statement->rowCount()) {
                 return $statement->fetchAll(PDO::FETCH_ASSOC);
             }
             return [];
-        }catch(PDOException $error){
+        } catch (PDOException $error) {
             echo $error->getMessage();
-            exit; 
+            exit;
         }
     }
 
-    public function remove(string $id) {
-        try{
-            $sql = "DELETE FROM tb_transactions WHERE transaction_id = :id";
-            $statement = $this->connection->prepare($sql);
-            $statement->bindValue(":id", $id);
+    public function calculateTotalGains()
+    {
+        try {
+            $query = "SELECT (p.unit_price * st.quantity) AS st_total FROM tb_products AS p JOIN tb_suppliers_transactions AS st ON p.product_id = st.product_id";
+            $statement = $this->connection->prepare($query);
             $statement->execute();
-        }catch(PDOException $error){
-            echo $error->getMessage();
-            exit; 
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
         }
     }
 }

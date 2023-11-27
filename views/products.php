@@ -66,7 +66,7 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
             </div>
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
                 <?php if(sizeof($products) > 0): ?>
-                    <table class="min-w-full mt-12">
+                    <table id="products_table" class="min-w-full mt-12">
                         <thead class="sticky top-0">
                             <tr class="">
                                 <td class="py-2 px-4 bg-black text-white">ID</td>
@@ -78,6 +78,7 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                                 <td class="py-2 px-4 bg-black text-white">Fornecedor</td>
                                 <td class="py-2 px-4 bg-black text-white">Estoque Mínimo</td>
                                 <td class="py-2 px-4 bg-black text-white">Estoque Atual</td>
+                                <td class="py-2 px-4 bg-black text-white">Status</td>
                                 <td class="py-2 px-4 bg-black text-white">Última Atualização</td>
                                 <td class="py-2 px-4 bg-black text-white">Ações</td>
                             </tr>
@@ -85,44 +86,56 @@ $session_text = "Cadastre os seus produtos disponíveis no seu estoque."
                         <tbody>
                             <?php foreach($products as $product): ?>
                                 <tr class="border-2 even:bg-gray-200">
-                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->product_id; ?></td>
-                                    <td class="py-2 px-4 text-sm">
+                                    <td class="py-2 px-4 text-xs"><?= $product["product"]->product_id; ?></td>
+                                    <td class="py-2 px-4 text-xs">
                                         <?php 
                                             $timestamp = strtotime($product["product"]->created_at);
                                             echo date("d/m/Y", $timestamp);
                                         ?>
                                     </td>
-                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->name; ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product["product"]->cost, 2, ",", "."); ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= "R$ " . number_format($product["product"]->cost * 1.5, 2, ",", "."); ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->category; ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->supplier; ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $product["product"]->min_stock; ?></td>
-                                    <td class="py-2 px-4 text-sm"><?= $product["current_stock"]; ?></td>
-                                    <td class="py-2 px-4 text-sm">
-                                    <?php
-                                        $from_database_datetime = $product["product"]->updated_at;
-                                        $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
-                                        $now = new DateTime();
+                                    <td class="py-2 px-4 text-xs"><?= $product["product"]->name; ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= "R$ " . number_format($product["product"]->cost, 2, ",", "."); ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= "R$ " . number_format($product["product"]->cost * 1.5, 2, ",", "."); ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= $product["product"]->category; ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= $product["product"]->supplier; ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= $product["product"]->min_stock; ?></td>
+                                    <td class="py-2 px-4 text-xs"><?= abs($product["current_stock"]); ?></td>
+                                    <td class="py-2 px-4 text-xs font-bold">
+                                        <?php 
+                                            $current_stock = abs($product["current_stock"]);
+                                            if ($current_stock < $product["product"]->min_stock) {
+                                                echo "Crítico";
+                                            } else if ($current_stock === $product["product"]->min_stock) {
+                                                echo "Atenção";
+                                            } else if ($current_stock >= $product["product"]->min_stock){
+                                                echo "Favorável";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td class="py-2 px-4 text-xs">
+                                        <?php
+                                            $from_database_datetime = $product["product"]->updated_at;
+                                            $database_date = DateTime::createFromFormat('Y-m-d H:i:s', $from_database_datetime);
+                                            $now = new DateTime();
 
-                                        $interval = $database_date->diff($now);
+                                            $interval = $database_date->diff($now);
 
-                                        $hours = $interval->h;
-                                        $minutes = $interval->i;
-                                        $seconds = $interval->s;
+                                            $hours = $interval->h;
+                                            $minutes = $interval->i;
+                                            $seconds = $interval->s;
 
-                                        $message = '';
+                                            $message = '';
 
-                                        if ($hours > 0) {
-                                            $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
-                                        } elseif ($minutes > 0) {
-                                            $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
-                                        } elseif ($seconds > 0) {
-                                            $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
-                                        }
+                                            if ($hours > 0) {
+                                                $message .= $hours . ' hora' . ($hours > 1 ? 's' : '') . ' atrás';
+                                            } elseif ($minutes > 0) {
+                                                $message .= $minutes . ' minuto' . ($minutes > 1 ? 's' : '') . ' atrás';
+                                            } elseif ($seconds > 0) {
+                                                $message .= $seconds . ' segundo' . ($seconds > 1 ? 's' : '') . ' atrás';
+                                            }
 
-                                        echo $message;
-                                    ?>
+                                            echo $message;
+                                        ?>
                                     </td>
                                     <td class="p-4 flex items-center justify-center gap-2">
                                         <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">Editar</a>
