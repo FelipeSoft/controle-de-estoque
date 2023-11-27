@@ -97,37 +97,3 @@ ADD FOREIGN KEY (`category_id`) REFERENCES `tb_categories`(`category_id`) ON DEL
 
 ALTER TABLE tb_products
 ADD FOREIGN KEY (`supplier_id`) REFERENCES `tb_suppliers`(`supplier_id`) ON DELETE CASCADE;
-
---Testando--
-
-SELECT 
-	p.name,
-    p.unit_price,
-    c.name,
-    bt.created_at
-FROM
-	db_controle_de_estoque.tb_buyers_transactions AS bt
-JOIN 
-	db_controle_de_estoque.tb_products AS p ON bt.product_id = p.product_id
-JOIN 
-	db_controle_de_estoque.tb_buyers AS b ON b.buyer_id = bt.buyer_id
-JOIN
-	db_controle_de_estoque.tb_categories AS c on c.category_id = p.category_id
-    
-UNION ALL
-    
-SELECT 
-	p.name,
-    p.unit_price,
-    c.name,
-    bt.created_at
-FROM
-	db_controle_de_estoque.tb_suppliers_transactions AS st
-JOIN 
-	db_controle_de_estoque.tb_products AS p ON p.product_id = p.product_id
-JOIN 
-	db_controle_de_estoque.tb_suppliers AS b ON b.supplier_id = bt.supplier_id
-JOIN
-	db_controle_de_estoque.tb_categories AS c on c.category_id = p.category_id
-
-    
