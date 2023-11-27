@@ -1,5 +1,5 @@
 <?php
-require_once ("../domain/interfaces/IProductDataAccessObject.php");
+require_once (dirname(__FILE__) . "../../../domain/interfaces/IProductDataAccessObject.php");
 
 class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
     public function __construct(
@@ -57,5 +57,27 @@ class ProductDataAccessObjectMySQL implements IProductDataAccessObject {
         }
     }
 
-    public function getProductIdByName(string $name) {}
+    public function count() {
+        try {
+            $query = "SELECT COUNT(*) AS count FROM tb_products;";
+            $statement = $this->connection->prepare($query);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) { 
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
+    public function calculateTotalGains() {
+        try {   
+            $query = "SELECT  FROM tb_products";
+            $statement = $this->connection->prepare($query);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
 }

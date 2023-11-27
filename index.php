@@ -2,9 +2,13 @@
 date_default_timezone_set('America/Sao_Paulo');
 
 require_once("database/dao/TransactionDataAccessObjectMySQL.php");
+require_once("database/dao/ProductDataAccessObjectMySQL.php");
+require_once("database/dao/SupplierDataAccessObjectMySQL.php");
 require("config/config.php");
 
 $dao = new TransactionDataAccessObjectMySQL($connection);
+$product_dao = new ProductDataAccessObjectMySQL($connection);
+$suppliers_dao = new SupplierDataAccessObjectMySQL($connection);
 
 $transactions = $dao->joinTransactions();
 
@@ -15,18 +19,12 @@ class="text-green-500 font-semibold">fortes</span> e <span
 class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de segundos.';
 
 $categories = $dao->getAvailableCategories();
+$suppliers = $suppliers_dao->getAvailableSuppliers();
 ?>
 <?php
 
 $totalTransactionAmount = 0;
-$totalStock = 0;
-foreach ($transactions as $transaction) {
-    $totalTransactionAmount += $transaction["transaction_amount"];
-
-}
-foreach ($transactions as $transaction) {
-    $totalStock += $transaction["current_stock"];
-}
+$totalStock = $product_dao->count()["count"];
 ?>
 <?php require("views/partials/metadata.php"); ?>
 <main class="w-screen">
@@ -76,7 +74,7 @@ foreach ($transactions as $transaction) {
                 <h1 class="font-bold text-2xl">Transações</h1>
                 <p class="text-gray-500">Todas as transações relacionadas a compras e vendas.</p>
             </div>
-            <h1 class="mt-10 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
+            <h1 class="mt-10 text-blue-500 font-bold text-2xl mb-2">Adicionar Transação</h1>
             <form action="index.php" method="POST">
                 <div class="grid grid-cols-4 gap-6">
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
@@ -95,12 +93,8 @@ foreach ($transactions as $transaction) {
                         Tipo de Transação
                         <select
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                            <?php
-                            foreach ($transactions as $transaction) {
-                                echo "<option value='" . $transaction["type"] ? "Venda" : "Compra" . "'>" . ($transaction["type"] ? "Venda" : "Compra") . "</option>";
-                                ;
-                            }
-                            ?>
+                            <option value="Venda">Venda</option>
+                            <option value="Compra">Compra</option>
                         </select>
                     </label>
                     <label class="flex flex-col mb-4 text-blue-500 font-regular">
@@ -108,8 +102,8 @@ foreach ($transactions as $transaction) {
                         <select
                             class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
                             <?php
-                            foreach ($transactions as $transaction) {
-                                echo "<option value='" . $transaction["supplier_name"] . "'>" . $transaction["supplier_name"] . "</option>";
+                            foreach ($suppliers as $sup) {
+                                echo "<option value='" . $sup["name"] . "'>" . $sup["name"] . "</option>";
                                 ;
                             }
                             ?>
@@ -118,17 +112,12 @@ foreach ($transactions as $transaction) {
                 </div>
 
                 <a href="app/actions/filter_transactions.php"
-                    class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
+                    class="bg-blue-500 py-2 px-4 text-white rounded-md">INSERIR</a>
                 <a href="app/actions/remove_filter_transactions.php"
                     class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
             </form>
         </div>
         <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
-            <div class="flex justify-end items-center w-full'">
-                <button id="open_modal"
-                    class="bg-blue-500 text-white rounded-md py-2 px-4 flex items-center justify-center font-bold gap-4"><i
-                        class="fa fa-plus text-white"></i> Nova Transação</button>
-            </div>
             <?php if (sizeof($transactions) > 0): ?>
                 <table class="min-w-full mt-12">
                     <thead class="sticky top-0">
