@@ -9,50 +9,6 @@ $session_text = "Gerencie com facilidade todas os produtos do seu estoque."
         <?php require("./partials/header.php"); ?>
         <section class="mx-auto container my-10">
             <?php require("../config/session.php"); ?>
-            <div>
-                <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-                <form action="">
-                    <div class="grid grid-cols-4 gap-6">
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Nome do Produto
-                            <input type="text" placeholder="ex: Impressora RICOH 377"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Status
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Favorável">Favorável</option>
-                                <option value="Atenção">Atenção</option>
-                                <option value="Crítico">Crítico</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Fornecedor
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Motorola">Motorola</option>
-                                <option value="Empresa">Empresa X</option>
-                            </select>
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Atendente
-                            <select
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                                <option value="Compra">Felipe</option>
-                                <option value="Venda">Miguel</option>
-                                <option value="Venda">Tiago</option>
-                                <option value="Venda">Victor</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                        <a href="" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-                    </div>
-                </form>
-            </div>
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
                 <table class="min-w-full mt-12" id="stock_table">
                     <thead class="sticky top-0">

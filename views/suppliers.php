@@ -48,33 +48,6 @@ $session_text = "Cadastre os seus fornecedores de forma facilitada."
                     </div>
                 </form>
             </div>
-            <div>
-                <h1 class="mt-8 text-blue-500 font-bold text-2xl mb-2">Filtros</h1>
-                <form action="">
-                <div class="grid grid-cols-3 gap-6">
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Nome
-                            <input type="text" placeholder="ex: Apple Computer"
-                                class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Email
-                            <input type="email" placeholder="ex: suporte@gmail.com"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                        <label class="flex flex-col mb-4 text-blue-500 font-regular">
-                            Telefone de Contato
-                            <input type="text" placeholder="ex: 19999179999"
-                            class="w-full outline-0 focus:border-blue-500 border-2 border-gray-300 py-2 px-4 rounded-md">
-                        </label>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="" class="bg-blue-500 py-2 px-4 text-white rounded-md">APLICAR</a>
-                        <a href="" class="bg-gray-500 py-2 px-4 text-white rounded-md">LIMPAR</a>
-                    </div>
-                </form>
-            </div>
             <div class="overflow-x-scroll min-w-full mx-auto max-h-screen mt-10">
                 <?php if(sizeof($suppliers) > 0): ?>
                     <table class="min-w-full mt-12">

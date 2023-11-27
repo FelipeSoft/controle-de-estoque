@@ -111,4 +111,16 @@ ORDER BY p.product_id ASC;
             exit; 
         }
     }
+
+    public function remove(string $id) {
+        try{
+            $sql = "DELETE FROM tb_transactions WHERE transaction_id = :id";
+            $statement = $this->connection->prepare($sql);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+        }catch(PDOException $error){
+            echo $error->getMessage();
+            exit; 
+        }
+    }
 }
