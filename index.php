@@ -38,7 +38,6 @@ class="text-red-500 font-semibold">fracos</span> do seu estoque em questão de s
 
 $categories = $dao->getAvailableCategories();
 $suppliers = $suppliers_dao->getAvailableSuppliers();
-
 $totalTransactionAmount = $dao->calculateTotalGains()["st_total"] ?? 0;
 $totalStock = $product_dao->count()["count"] ?? 0;
 ?>
@@ -50,7 +49,7 @@ $totalStock = $product_dao->count()["count"] ?? 0;
             <?php require(dirname(__FILE__) . "/config/session.php"); ?>
         </div>
         <?php require("views/partials/transaction_modal.php"); ?>
-        <div class="grid grid-cols-5 mt-10 gap-8">
+        <div class="grid grid-cols-4 mt-10 gap-8">
             <div
                 class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
                 <h2 class="text-lg font-semibold text-center">Produtos</h2>
@@ -58,15 +57,6 @@ $totalStock = $product_dao->count()["count"] ?? 0;
                     <?= $totalStock ?>
                 </h1>
             </div>
-            <div
-                class="w-full bg-blue-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-blue-300 text-blue-400">
-                <h2 class="text-lg font-semibold text-center">Receita Total</h2>
-
-                <h1 class="text-xl text-center font-bold">
-                    <?= "R$" . number_format($totalTransactionAmount, 2, ",", ".") ?>
-                </h1>
-            </div>
-
             <div
                 class="w-full bg-green-200 p-4 shadow-xl rounded-md flex flex-col items-center justify-center border-4 border-green-300 text-green-500">
                 <h2 class="text-lg font-semibold text-center">Favoráveis</h2>

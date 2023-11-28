@@ -120,7 +120,7 @@ ORDER BY p.product_id ASC;
     public function calculateTotalGains()
     {
         try {
-            $query = "SELECT (p.unit_price * st.quantity) AS st_total FROM tb_products AS p JOIN tb_suppliers_transactions AS st ON p.product_id = st.product_id";
+            $query = "SELECT (SUM(p.unit_price) * SUM(st.quantity)) AS st_total FROM tb_products AS p JOIN tb_suppliers_transactions AS st ON p.product_id = st.product_id";
             $statement = $this->connection->prepare($query);
             $statement->execute();
             return $statement->fetch(PDO::FETCH_ASSOC);

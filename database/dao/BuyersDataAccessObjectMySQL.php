@@ -47,5 +47,35 @@ class BuyersDataAccessObjectMySQL implements IBuyersDataAccessObject {
             exit;
         }
     }
+
+    public function get($id)
+    {
+        try {
+            $query = "SELECT * FROM tb_buyers WHERE buyer_id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
+
+    public function edit(array $info) {
+        try {
+            $query = "UPDATE tb_buyers SET name = :name, email = :email, contact_number = :contact_number, updated_at = NOW() WHERE buyer_id = :id";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bindValue(":id", $info["id"]);
+            $stmt->bindValue(":name", $info["name"]);
+            $stmt->bindValue(":email", $info["email"]);
+            $stmt->bindValue(":contact_number", $info["contact_number"]);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
 }
 
